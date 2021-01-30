@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_home"
+        android:icon="@drawable/tabbar_icon_record"
+        android:title="기록하기"/>
+    <item android:id="@+id/menu_record"
+        android:icon="@drawable/tabbar_icon_history"
+        android:title="기록보기"/>
+    <item android:id="@+id/menu_graph"
+        android:icon="@drawable/tabbar_icon_overcome"
+        android:title="극복하기"/>
+    <item android:id="@+id/menu_exchange"
+        android:icon="@drawable/tabbar_icon_setting"
+        android:title="설정"/>
+</menu>

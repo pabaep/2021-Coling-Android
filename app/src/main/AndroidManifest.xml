@@ -12,11 +12,18 @@
         <activity android:name=".ActRecodeActivity"></activity>
         <activity android:name=".GoogleLogInActivity" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".SplashActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".DetailHistoryActivity">
+        </activity>
+        <activity android:name=".HistoryActivity" />
+        <activity android:name=".MyActActivity" />
+        <activity android:name=".MainActivity">
         </activity>
     </application>
 

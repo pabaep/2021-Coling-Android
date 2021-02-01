@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ivory"
+    tools:context=".MyActActivity">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/back_icon"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:text="COling"
+        android:textSize="20dp"
+        android:textColor="@color/gray"
+        android:fontFamily="@font/bmjua"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="120dp"
+        android:text="Activity Name"
+        android:textSize="30sp"
+        android:textColor="@color/darkgreen"
+        android:fontFamily="@font/bmjua"
+        />
+
+    <EditText
+        android:id="@+id/my_act_name"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="170dp"
+        android:padding="20dp"
+        android:background="@color/lightgreen"
+        android:hint="Write the name of the activity."
+        android:textSize="20sp"
+        android:fontFamily="@font/bmhnnnaair"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+<!--    위에 두개 배치까지 잘 한 다음에 복붙해서 Contents만듦-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="300dp"
+        android:text="Contents"
+        android:textSize="30sp"
+        android:textColor="@color/darkgreen"
+        android:fontFamily="@font/bmjua"
+        />
+
+    <EditText
+        android:id="@+id/my_act_contents"
+        android:layout_width="350dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="350dp"
+        android:padding="20dp"
+        android:background="@color/lightgreen"
+        android:hint="Explain the activity."
+        android:textSize="20sp"
+        android:fontFamily="@font/bmhnnnaair"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+
+    <Button
+        android:id="@+id/btn_doit"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="bottom"
+        android:background="@color/green"
+        android:text="Do it!"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/bmjua"
+        android:textAllCaps="false"
+        />
+
+
+</FrameLayout>

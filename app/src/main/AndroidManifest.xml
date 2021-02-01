@@ -9,8 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
 
         <activity android:name=".SplashActivity">
+=======
+        <activity android:name=".DetailHistoryActivity"></activity>
+        <activity android:name=".HistoryActivity" />
+        <activity android:name=".MyActActivity" />
+        <activity android:name=".MainActivity">
+>>>>>>> 7e2763594101398239c2897905c43a94b82d84dd
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainScreenActivity"></activity>
-        <activity android:name=".ActRecodeActivity" />
+        <activity android:name=".SelectEmotionActivity"></activity>
+        <activity android:name=".MainScreenActivity" />
+        <activity android:name=".ActRecordActivity" />
         <activity android:name=".GoogleLogInActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
@@ -19,10 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailHistoryActivity"></activity>
+        <activity android:name=".DetailHistoryActivity" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".MyActActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

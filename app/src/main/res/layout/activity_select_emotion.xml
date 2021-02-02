@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ivory"
+    tools:context=".SelectEmotionActivity">
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="100dp"
+        android:background="@color/mint"
+        android:fontFamily="@font/bmjua"
+        android:gravity="center"
+        android:text="Select your Emotion"
+        android:textColor="@color/darkgreen"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="250dp"
+                app:srcCompat="@drawable/day_square"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <ImageView
+                    android:id="@+id/emoji_1_img"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="290dp"
+                    android:layout_marginLeft="50dp"
+                    app:srcCompat="@drawable/emoji_1" />
+
+                <ImageView
+                    android:id="@+id/emoji_2_img"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="-70dp"
+                    android:layout_marginLeft="130dp"
+                    app:srcCompat="@drawable/emoji_2" />
+                <ImageView
+                    android:id="@+id/emoji_3_img"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="-70dp"
+                    android:layout_marginLeft="210dp"
+                    app:srcCompat="@drawable/emoji_3" />
+                <ImageView
+                    android:id="@+id/emoji_4_img"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="-70dp"
+                    android:layout_marginLeft="290dp"
+                    app:srcCompat="@drawable/emoji_4" />
+                <ImageView
+                    android:id="@+id/emoji_5_img"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="80dp"
+                    app:srcCompat="@drawable/emoji_5" />
+                <ImageView
+                    android:id="@+id/emoji_6_img"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="-70dp"
+                    android:layout_marginLeft="175dp"
+                    app:srcCompat="@drawable/emoji_6" />
+                <ImageView
+                    android:id="@+id/emoji_7_img"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="-70dp"
+                    android:layout_marginLeft="270dp"
+                    app:srcCompat="@drawable/emoji_7" />
+                <ImageView
+                    android:id="@+id/emoji_8_img"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="50dp"
+                    app:srcCompat="@drawable/emoji_8" />
+                <ImageView
+                    android:id="@+id/emoji_9_img"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="-70dp"
+                    android:layout_marginLeft="130dp"
+                    app:srcCompat="@drawable/emoji_9" />
+                <ImageView
+                    android:id="@+id/emoji_10_img"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="-70dp"
+                    android:layout_marginLeft="210dp"
+                    app:srcCompat="@drawable/emoji_10" />
+                <ImageView
+                    android:id="@+id/emoji_11_img"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="-70dp"
+                    android:layout_marginLeft="290dp"
+                    app:srcCompat="@drawable/emoji_11" />
+            </LinearLayout>
+        </FrameLayout>
+
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -125,21 +125,44 @@
                 android:textSize="25sp"
                 />
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="350dp"
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="20dp"
-                android:background="@color/lightgreen"
-                android:fontFamily="@font/bmhnnnaair"
-                android:gravity="center_horizontal|center_vertical"
-                android:padding="20dp"
-                android:text="I took care of the plants that I had been putting off.I feel comfortable for no reason."
-                android:textColor="@color/darkgreen"
-                android:textSize="20sp"
-                />
+                android:layout_marginBottom="20dp">
 
+                <TextView
+                    android:id="@+id/act_content_read"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/lightgreen"
+                    android:fontFamily="@font/bmhnnnaair"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="20dp"
+                    android:text="I took care of the plants that I had been putting off.I feel comfortable for no reason."
+                    android:textColor="@color/darkgreen"
+                    android:textSize="20sp"
+                    android:visibility="visible"
+                    />
+
+                <EditText
+                    android:id="@+id/act_content_modify"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:background="#63EAC4B2"
+                    android:fontFamily="@font/bmhnnnaair"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="20dp"
+                    android:inputType="textMultiLine"
+                    android:text="I took care of the plants that I had been putting off.I feel comfortable for no reason."
+                    android:textColor="@color/darkgreen"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    />
+
+
+
+            </FrameLayout>
         </LinearLayout>
     </ScrollView>
 
@@ -155,6 +178,21 @@
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="bottom"
+        android:background="@color/green"
+        android:fontFamily="@font/bmjua"
+        android:text="S A V E"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -1,10 +1,12 @@
 package com.example.coling
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_history.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +29,11 @@ class HistoryFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        //새싹 이미지 클릭 시 호출
+        check_1.setOnClickListener{
+            readDetail()
+        }
     }
 
     override fun onCreateView(
@@ -35,7 +42,16 @@ class HistoryFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_history, container, false)
+
     }
+
+    //새싹 이미지를 클릭하면 detail history로 롸면이동시키는 함수
+    fun readDetail(){
+        //if(true)
+        val intent = Intent(activity, DetailHistoryActivity :: class.java )
+        startActivity(intent)
+    }
+
 
     companion object {
         /**

@@ -101,17 +101,33 @@
                 android:textSize="25sp"
                 />
 
-            <ImageView
-                android:id="@+id/detail_emotion"
-                android:layout_width="350dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="5dp"
-                android:padding="2.5dp"
-                android:background="@color/lightgreen"
-                android:fontFamily="@font/bmhnnnaair"
-                android:gravity="center_horizontal|center_vertical"
-                android:src="@drawable/emoji_1"
-                />
+<!--            <FrameLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="5dp">-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/detail_emotion_read"-->
+<!--                    android:layout_width="350dp"-->
+<!--                    android:layout_height="70dp"-->
+<!--                    android:padding="2.5dp"-->
+<!--                    android:background="@color/lightgreen"-->
+<!--                    android:fontFamily="@font/bmhnnnaair"-->
+<!--                    android:gravity="center_horizontal|center_vertical"-->
+<!--                    android:src="@drawable/emoji_1"-->
+<!--                    android:visibility="visible"-->
+<!--                    />-->
+                <ImageView
+                    android:id="@+id/detail_emotion_modify"
+                    android:layout_width="350dp"
+                    android:layout_height="70dp"
+                    android:padding="2.5dp"
+                    android:background="@color/lightgreen"
+                    android:fontFamily="@font/bmhnnnaair"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:src="@drawable/emoji_1"
+                    android:visibility="visible"
+                    />
+<!--            </FrameLayout>-->
 
             <TextView
                 android:id="@+id/textView7"
@@ -130,7 +146,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="20dp">
-
                 <TextView
                     android:id="@+id/act_content_read"
                     android:layout_width="350dp"
@@ -144,12 +159,11 @@
                     android:textSize="20sp"
                     android:visibility="visible"
                     />
-
                 <EditText
                     android:id="@+id/act_content_modify"
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"
-                    android:background="#63EAC4B2"
+                    android:background="@color/lightgreen"
                     android:fontFamily="@font/bmhnnnaair"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="20dp"
@@ -157,12 +171,10 @@
                     android:text="I took care of the plants that I had been putting off.I feel comfortable for no reason."
                     android:textColor="@color/darkgreen"
                     android:textSize="20sp"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     />
-
-
-
             </FrameLayout>
+
         </LinearLayout>
     </ScrollView>
 

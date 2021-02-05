@@ -2,6 +2,7 @@ package com.example.coling
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -29,11 +30,6 @@ class HistoryFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
-        //새싹 이미지 클릭 시 호출
-        check_1.setOnClickListener{
-            readDetail()
-        }
     }
 
     override fun onCreateView(
@@ -42,7 +38,21 @@ class HistoryFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_history, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+//        check_1.setOnClickListener{
+////            Log.d("check_1","셋온클릭리스너는 잘 동작함")
+//            val intent = Intent(activity, DetailHistoryActivity :: class.java )
+//            startActivity(intent)
+//        }
+
+        //새싹 이미지 클릭 시 호출
+        check_1.setOnClickListener{
+            readDetail()
+        }
     }
 
     //새싹 이미지를 클릭하면 detail history로 롸면이동시키는 함수

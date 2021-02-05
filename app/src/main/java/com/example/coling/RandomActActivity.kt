@@ -27,7 +27,7 @@ class RandomActActivity : AppCompatActivity() {
         }
 
         back.setOnClickListener{
-            val intent = Intent(this, MainScreenActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 

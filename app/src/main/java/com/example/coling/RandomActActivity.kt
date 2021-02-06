@@ -11,7 +11,7 @@ class RandomActActivity : AppCompatActivity() {
 
 //    private lateinit var actName :TextView
 //    private lateinit var actContent :TextView
-    private val actName :TextView = random_act_name
+    //private val actName :TextView = random_act_name
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

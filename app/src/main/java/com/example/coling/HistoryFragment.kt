@@ -53,6 +53,11 @@ class HistoryFragment : Fragment() {
         check_1.setOnClickListener{
             readDetail()
         }
+
+        check_2.setOnClickListener{
+            val intent = Intent(activity, RandomActActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     //새싹 이미지를 클릭하면 detail history로 롸면이동시키는 함수

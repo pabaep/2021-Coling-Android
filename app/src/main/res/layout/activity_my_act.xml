@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,70 +12,94 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="10dp"
+        android:layout_marginTop="4dp"
         android:src="@drawable/back_icon"
-        />
+        app:layout_constraintEnd_toEndOf="@+id/btn_doit"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/bmjua"
         android:text="COling"
-        android:textSize="20dp"
         android:textColor="@color/gray"
-        android:fontFamily="@font/bmjua"
-        />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    위에 두개 배치까지 잘 한 다음에 복붙해서 Contents만듦-->
 
     <TextView
+        android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="120dp"
-        android:text="Activity Name"
-        android:textSize="30sp"
-        android:textColor="@color/darkgreen"
+        android:layout_marginTop="56dp"
         android:fontFamily="@font/bmjua"
-        />
+        android:text="Activity Name"
+        android:textColor="@color/darkgreen"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <EditText
         android:id="@+id/my_act_name"
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="170dp"
-        android:padding="20dp"
+        android:layout_marginTop="12dp"
         android:background="@color/lightgreen"
-        android:hint="Write the name of the activity."
-        android:textSize="20sp"
         android:fontFamily="@font/bmhnnnaair"
+        android:hint="Write the name of the activity."
+        android:importantForAutofill="no"
         android:inputType="text"
-        android:importantForAutofill="no" />
-<!--    위에 두개 배치까지 잘 한 다음에 복붙해서 Contents만듦-->
+        android:padding="20dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <TextView
+        android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="300dp"
-        android:text="Contents"
-        android:textSize="30sp"
-        android:textColor="@color/darkgreen"
+        android:layout_marginTop="44dp"
         android:fontFamily="@font/bmjua"
-        />
+        android:text="Contents"
+        android:textColor="@color/darkgreen"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_act_name" />
 
     <EditText
         android:id="@+id/my_act_contents"
         android:layout_width="350dp"
         android:layout_height="250dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="350dp"
-        android:padding="20dp"
         android:background="@color/lightgreen"
-        android:hint="Explain the activity."
-        android:textSize="20sp"
         android:fontFamily="@font/bmhnnnaair"
+        android:hint="Explain the activity."
+        android:importantForAutofill="no"
         android:inputType="text"
-        android:importantForAutofill="no" />
+        android:padding="20dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_doit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        app:layout_constraintVertical_bias="0.123" />
 
     <Button
         android:id="@+id/btn_doit"
@@ -83,12 +107,14 @@
         android:layout_height="80dp"
         android:layout_gravity="bottom"
         android:background="@color/green"
-        android:text="Do it!"
-        android:textSize="30sp"
-        android:textColor="@color/white"
         android:fontFamily="@font/bmjua"
+        android:text="Do it!"
         android:textAllCaps="false"
-        />
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,8 +16,6 @@ class DetailHistoryActivity : AppCompatActivity() {
         //modify누르면 수정모드로 바뀜(emotion, story, 버튼)
         btn_modify.setOnClickListener{
             //emotion부분 누르면 기분선택창으로 이동
-//            detail_emotion_read.visibility = View.INVISIBLE
-//            detail_emotion_modify.visibility = View.VISIBLE
             detail_emotion_modify.setOnClickListener{
                 val intent = Intent(this, SelectEmotionActivity ::class.java) //프래그먼트로도 이렇게 이동 가능??
                 startActivity(intent)

@@ -48,7 +48,7 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //새싹 이미지 클릭 시 호출
+        //새싹 이미지 클릭 시 자세한 기록 보여주는 함수 readDetail()호출
         check_1.setOnClickListener{
             readDetail()
         }

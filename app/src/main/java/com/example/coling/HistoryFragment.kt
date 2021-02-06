@@ -48,12 +48,6 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        check_1.setOnClickListener{
-////            Log.d("check_1","셋온클릭리스너는 잘 동작함")
-//            val intent = Intent(activity, DetailHistoryActivity :: class.java )
-//            startActivity(intent)
-//        }
-
         //새싹 이미지 클릭 시 호출
         check_1.setOnClickListener{
             readDetail()

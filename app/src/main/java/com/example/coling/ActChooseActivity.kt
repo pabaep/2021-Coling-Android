@@ -15,7 +15,7 @@ class ActChooseActivity : AppCompatActivity() {
         }
 
         btn_choose_random.setOnClickListener {
-            val intent = Intent(this, RecordIconActivity::class.java)
+            val intent = Intent(this, RandomActActivity::class.java)
             startActivityForResult(intent, 0)
         }
 

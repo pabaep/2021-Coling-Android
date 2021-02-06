@@ -35,7 +35,7 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="150dp"
+            android:layout_width="130dp"
             android:layout_height="100dp"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
@@ -48,6 +48,8 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:fontFamily="@font/bmhnnnaair"
             android:text="Peace of mind \nWhite Noise / \nSleep music"
             android:textColor="@color/darkgreen"
@@ -73,7 +75,7 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="150dp"
+            android:layout_width="130dp"
             android:layout_height="100dp"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
@@ -86,6 +88,8 @@
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:fontFamily="@font/bmhnnnaair"
             android:text="Connect to the \npsychological \ncounseling hotline"
             android:textColor="@color/darkgreen"
@@ -111,7 +115,7 @@
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="150dp"
+            android:layout_width="130dp"
             android:layout_height="100dp"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
@@ -124,6 +128,8 @@
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:fontFamily="@font/bmhnnnaair"
             android:text="Emotion Self \ndiagnostic test"
             android:textColor="@color/darkgreen"

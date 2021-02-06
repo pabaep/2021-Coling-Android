@@ -11,7 +11,7 @@ class RandomActActivity : AppCompatActivity() {
 
 //    private lateinit var actName :TextView
 //    private lateinit var actContent :TextView
-    val actName :TextView = random_act_name
+    //private val actName :TextView = random_act_name
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,12 @@ class RandomActActivity : AppCompatActivity() {
 
         btn_doit.setOnClickListener{
             val intent = Intent(this, ActRecordActivity::class.java)
-            intent.putExtra("act_name", actName.text.toString())
+           //intent.putExtra("act_name", actName.text.toString())
+            startActivity(intent)
+        }
+
+        back.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 

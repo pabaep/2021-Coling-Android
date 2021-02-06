@@ -10,7 +10,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener
- {
+{
      override fun onNavigationItemSelected(p0: MenuItem): Boolean {
          when(p0.itemId){
              R.id.menu_record ->{
@@ -46,6 +46,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         setContentView(R.layout.activity_main)
 
         main_bottom_navigation.setOnNavigationItemSelectedListener(this)
+        //디폴트 선택으로 메인화면 넣음
+        main_bottom_navigation.selectedItemId = R.id.menu_record
 
     }
 

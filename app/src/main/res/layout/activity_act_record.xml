@@ -101,7 +101,7 @@
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="200dp"
                 android:background="@color/lightgreen"
                 android:fontFamily="@font/bmhnnnaair"
                 android:gravity="center_horizontal|center_vertical"

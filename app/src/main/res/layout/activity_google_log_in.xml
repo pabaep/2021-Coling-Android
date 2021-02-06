@@ -39,6 +39,7 @@
                 android:layout_gravity="center_horizontal"
                 android:textAllCaps="false"
                 android:text="COling"
+                android:textColor="@color/gray"
                 android:textSize="20sp"/>
         </FrameLayout>
 

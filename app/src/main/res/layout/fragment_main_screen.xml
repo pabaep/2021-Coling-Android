@@ -26,30 +26,34 @@
                 android:layout_gravity="center_horizontal"
                 android:textAllCaps="false"
                 android:text="COling"
+                android:textColor="@color/gray"
                 android:textSize="20sp"/>
 
-            <TextView
-                android:id="@+id/text_day"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:text="DAY"
-                android:fontFamily="@font/bmjua"
-                android:layout_marginLeft="120dp"
-                android:textColor="@color/darkgreen"
-                android:textSize="50sp"/>
+            <FrameLayout
+                android:layout_width="170dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="70dp">
 
-            <TextView
-                android:id="@+id/text_day_real"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center_horizontal"
-                android:layout_marginRight="120dp"
-                android:layout_marginTop="80dp"
-                android:fontFamily="@font/bmjua"
-                android:text="14"
-                android:textColor="@color/darkgreen"
-                android:textSize="50sp" />
+                <TextView
+                    android:id="@+id/text_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bmjua"
+                    android:text="DAY"
+                    android:textColor="@color/darkgreen"
+                    android:textSize="50sp" />
+
+                <TextView
+                    android:id="@+id/text_day_real"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_horizontal"
+                    android:fontFamily="@font/bmjua"
+                    android:text="14"
+                    android:textColor="@color/darkgreen"
+                    android:textSize="50sp" />
+            </FrameLayout>
             <TextView
                 android:id="@+id/today_quote_box"
                 android:layout_width="350dp"
@@ -84,12 +88,13 @@
                 android:textAlignment="center"
                 android:textSize="25sp"/>
 
-            <Button style="@style/MyButtonview"
+            <Button
                 android:id="@+id/today_act_start_btn"
+                style="@style/MyButtonview"
                 android:layout_width="250dp"
-                android:layout_marginTop="550dp"
-                android:text="Start !"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="50dp"
+                android:text="Start !" />
 
         </FrameLayout>
     </LinearLayout>

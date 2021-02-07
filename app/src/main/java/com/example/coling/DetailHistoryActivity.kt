@@ -32,12 +32,14 @@ class DetailHistoryActivity : AppCompatActivity() {
         btn_save.setOnClickListener{
             val intent = Intent(this, MainActivity ::class.java) //프래그먼트로도 이렇게 이동 가능??
             startActivity(intent)
+            finish()
         }
 
         //뒤로가기 일단 mainActivity로 이동 (이후 수정 history로 화변이동)
         back.setOnClickListener{
             val intent = Intent(this, MainActivity ::class.java) //프래그먼트로도 이렇게 이동 가능??
             startActivity(intent)
+            finish()
         }
 
     }

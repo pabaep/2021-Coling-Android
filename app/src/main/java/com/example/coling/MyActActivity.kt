@@ -14,11 +14,13 @@ class MyActActivity : AppCompatActivity() {
         btn_doit.setOnClickListener{
             val intent = Intent(this, ActRecordActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         back.setOnClickListener{
             val intent = Intent(this, ActChooseActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

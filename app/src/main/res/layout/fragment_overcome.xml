@@ -22,7 +22,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_music"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="135dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="50dp"
@@ -62,7 +62,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_call"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="135dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="15dp"
@@ -102,7 +102,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_test"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="135dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp"

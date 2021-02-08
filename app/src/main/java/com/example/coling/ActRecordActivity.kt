@@ -11,8 +11,7 @@ class ActRecordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_act_record)
 
         back_btn.setOnClickListener {
-            val intent = Intent(this, RandomActActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
         act_record_emotion_img.setOnClickListener {

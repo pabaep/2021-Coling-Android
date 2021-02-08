@@ -24,7 +24,6 @@ class RandomActActivity : AppCompatActivity() {
             val intent = Intent(this, ActRecordActivity::class.java)
            //intent.putExtra("act_name", actName.text.toString())
             startActivity(intent)
-            finish()
         }
 
         back.setOnClickListener{

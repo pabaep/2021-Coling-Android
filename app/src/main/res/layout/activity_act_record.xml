@@ -51,14 +51,13 @@
                 android:layout_marginTop="20dp"
                 android:background="@color/lightgreen">
 
-                <!--이부분 edit text로 바꾸기 전체 적으로 id 바꾸기-->
                 <ImageView
                     android:id="@+id/act_record_photo_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:padding="20dp"
-                    android:src="@drawable/dummy_photo" />
+                    android:src="@drawable/photo_hint_img" />
             </FrameLayout>
 
             <TextView
@@ -73,16 +72,14 @@
                 android:textSize="25sp"
                 />
 
-            <TextView
+            <ImageView
                 android:id="@+id/act_record_emotion_img"
                 android:layout_width="350dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/lightgreen"
-                android:fontFamily="@font/bmhnnnaair"
                 android:gravity="center_horizontal|center_vertical"
-                android:textSize="20sp"
-                android:text="Select your emotion" />
+                android:src="@drawable/emoji_hint_img"/>
 
             <TextView
                 android:id="@+id/short_story_title"

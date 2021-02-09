@@ -28,7 +28,7 @@ class OvercomeFragment : Fragment() {
 
         // 전화연결 버튼
         cl_call.setOnClickListener {
-            val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:010-1234-5678"))
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:010-1234-5678"))
             startActivity(intent)
         }
     }

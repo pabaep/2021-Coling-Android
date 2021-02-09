@@ -2,6 +2,7 @@ package com.example.coling
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -114,5 +115,22 @@ class ActRecordActivity : AppCompatActivity() {
             sendBroadcast(mediaScanIntent)
         }
     }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
+        if(requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK){
+            val file = File(currentPhotoPath)
+            if (Build.VERSION.SDK_INT < 28) {
+                val bitmap = MediaStore.Images.Media
+                    .getBitmap(contentResolver, Uri.fromFile(file))
+                act_record_photo_img.setImageBitmap(bitmap)
+            }
+            else{
+                val decode = ImageDecoder.createSource(this.contentResolver,
+                    Uri.fromFile(file))
+                val bitmap = ImageDecoder.decodeBitmap(decode)
+                act_record_photo_img.setImageBitmap(bitmap)
+            }
+        }
+    }
 }

@@ -24,23 +24,35 @@
             android:background="@color/ivory"
             android:layout_weight="1">
 
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="150dp"
+                app:srcCompat="@mipmap/icon_coling_round" />
+
+
             <Button style="@style/MyButtonview"
                 android:id="@+id/google_login_btn"
                 android:layout_width="350dp"
-                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="500dp"
                 android:text="Sign with Google" />
 
-            <TextView
-                android:id="@+id/COling_head"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/bmjua"
-                android:layout_gravity="center_horizontal"
-                android:textAllCaps="false"
-                android:text="COling"
-                android:textColor="@color/gray"
-                android:textSize="20sp"/>
+<!--            <TextView-->
+<!--                android:id="@+id/COling_head"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:fontFamily="@font/bmjua"-->
+<!--                android:layout_gravity="center_horizontal"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:text="COling"-->
+<!--                android:textColor="@color/gray"-->
+<!--                android:textSize="20sp"/>-->
+
+
         </FrameLayout>
 
 

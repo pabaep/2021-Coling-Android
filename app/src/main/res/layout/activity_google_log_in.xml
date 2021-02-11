@@ -26,11 +26,11 @@
 
             <ImageView
                 android:id="@+id/imageView6"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="150dp"
-                app:srcCompat="@drawable/img_COling" />
+                app:srcCompat="@drawable/img_coling" />
 
 
             <Button style="@style/MyButtonview"

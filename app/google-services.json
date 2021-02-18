@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "372809100247",
+    "project_id": "coling-1612344212022",
+    "storage_bucket": "coling-1612344212022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372809100247:android:63fbe0e4722e7c0168f992",
+        "android_client_info": {
+          "package_name": "com.example.coling"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372809100247-3v2i0siakhov00j5c65dsg6vh6nc3bj6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.coling",
+            "certificate_hash": "3d15a01a8be35e2d80bd9676d79f9810a559196d"
+          }
+        },
+        {
+          "client_id": "372809100247-15kl4bgh673753dgt0c48hg2aubr1gcg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCITPiMH_j30ZX-NfYVhCIz_HXvG676-9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372809100247-15kl4bgh673753dgt0c48hg2aubr1gcg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

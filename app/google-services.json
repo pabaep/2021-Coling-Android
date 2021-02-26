@@ -7,15 +7,15 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:372809100247:android:63fbe0e4722e7c0168f992",
+        "mobilesdk_app_id": "1:372809100247:android:bd89b8134d62504a68f992",
         "android_client_info": {
           "package_name": "com.example.coling"
         }
       },
       "oauth_client": [
         {
-          "client_id": "372809100247-3v2i0siakhov00j5c65dsg6vh6nc3bj6.apps.googleusercontent.com",
-          "client_type": 1,
+          "client_id": "372809100247-qv6jr8okf43gli46qvn46em40ta6lmrk.apps.googleusercontent.com",
+          "client_type": 3,
           "android_info": {
             "package_name": "com.example.coling",
             "certificate_hash": "3d15a01a8be35e2d80bd9676d79f9810a559196d"

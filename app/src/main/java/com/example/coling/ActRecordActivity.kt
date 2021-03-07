@@ -71,8 +71,12 @@ class ActRecordActivity : AppCompatActivity() {
         ModelRecords.date = System.currentTimeMillis()
         ModelRecords.act_name = intent.getStringExtra("act_name")
         ModelRecords.act_content = intent.getStringExtra("act_content")
+        ModelRecords.day = 999
 
-        firestore?.collection("Records")?.document()?.set(ModelRecords)
+        var day = 999
+
+        firestore?.collection("Records")?.document("record_${auth?.currentUser?.uid}")?.collection("$day")?.document()?.set(ModelRecords)
+
 
         finish()
     }

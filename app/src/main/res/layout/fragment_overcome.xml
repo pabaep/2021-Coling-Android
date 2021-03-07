@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bmhnnnaair"
-            android:text="Peace of mind \nWhite Noise / \nSleep music"
+            android:text="Peace of mind \n with music"
             android:textColor="@color/darkgreen"
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="parent"

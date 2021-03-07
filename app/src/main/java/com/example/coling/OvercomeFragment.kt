@@ -20,6 +20,12 @@ class OvercomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //음악 버튼
+        cl_music.setOnClickListener {
+            val intent = Intent(activity, OvercomeMusicActivity::class.java)
+            startActivity(intent)
+        }
+
         // 자가진단테스트 버튼
         cl_test.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://nct.go.kr/distMental/rating/rating02_2.do"))

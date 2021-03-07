@@ -36,6 +36,8 @@
         <activity android:name=".MyActActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ActChooseActivity" />
+        <activity android:name=".SettingTermsActivity"/>
+        <activity android:name=".SettingPrivacyActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

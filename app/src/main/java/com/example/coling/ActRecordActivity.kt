@@ -1,14 +1,15 @@
 package com.example.coling
 
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.graphics.ColorSpace
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -25,6 +26,7 @@ import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.activity_act_record.*
 import java.io.File
 import java.io.IOException
+import java.lang.Byte.decode
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,6 +35,8 @@ class ActRecordActivity : AppCompatActivity() {
     lateinit var currentPhotoPath: String
     var auth : FirebaseAuth? = null
     var firestore : FirebaseFirestore? = null
+    var emoString : String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_act_record)
@@ -45,7 +49,8 @@ class ActRecordActivity : AppCompatActivity() {
 
         act_record_emotion_img.setOnClickListener {
             val intent = Intent(this, SelectEmotionActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent,100)
+            //emoString = intent.getStringExtra("emo_select_string").toString()
         }
 
         act_record_photo_img.setOnClickListener {
@@ -59,8 +64,14 @@ class ActRecordActivity : AppCompatActivity() {
             contentUpload()
 
         }
+
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
+
+
+        /*if(emoString.isNotEmpty()){
+            findEmo()
+        }*/
 
     }
     fun contentUpload(){
@@ -72,6 +83,7 @@ class ActRecordActivity : AppCompatActivity() {
         ModelRecords.act_name = intent.getStringExtra("act_name")
         ModelRecords.act_content = intent.getStringExtra("act_content")
         ModelRecords.day = 999
+        ModelRecords.emo = emoString
 
         var day = 999
 
@@ -165,6 +177,56 @@ class ActRecordActivity : AppCompatActivity() {
                 val bitmap = ImageDecoder.decodeBitmap(decode)
                 act_record_photo_img.setImageBitmap(bitmap)
             }
+        }
+        else if(requestCode == 100 && resultCode == Activity.RESULT_OK){
+            emoString = data!!.getStringExtra("emo_select_string").toString()
+            findEmo()
+        }
+    }
+    fun findEmo(){
+        if(emoString == "emoji_1"){
+            val drawable = getDrawable(R.drawable.emoji_1)
+            act_record_emotion_img.setImageDrawable(drawable)
+        }
+        else if(emoString == "emoji_2"){
+            val drawable = getDrawable(R.drawable.emoji_2)
+            act_record_emotion_img.setImageDrawable(drawable)
+        }
+        else if(emoString == "emoji_3"){
+            val drawable = getDrawable(R.drawable.emoji_3)
+            act_record_emotion_img.setImageDrawable(drawable)
+        }
+        else if(emoString == "emoji_4"){
+            val drawable = getDrawable(R.drawable.emoji_4)
+            act_record_emotion_img.setImageDrawable(drawable)
+        }
+        else if(emoString == "emoji_5"){
+            val drawable = getDrawable(R.drawable.emoji_5)
+            act_record_emotion_img.setImageDrawable(drawable)
+        }
+        else if(emoString == "emoji_6"){
+            val drawable = getDrawable(R.drawable.emoji_6)
+            act_record_emotion_img.setImageDrawable(drawable)
+        }
+        else if(emoString == "emoji_7"){
+            val drawable = getDrawable(R.drawable.emoji_7)
+            act_record_emotion_img.setImageDrawable(drawable)
+        }
+        else if(emoString == "emoji_8"){
+            val drawable = getDrawable(R.drawable.emoji_8)
+            act_record_emotion_img.setImageDrawable(drawable)
+        }
+        else if(emoString == "emoji_9"){
+            val drawable = getDrawable(R.drawable.emoji_9)
+            act_record_emotion_img.setImageDrawable(drawable)
+        }
+        else if(emoString == "emoji_10"){
+            val drawable = getDrawable(R.drawable.emoji_10)
+            act_record_emotion_img.setImageDrawable(drawable)
+        }
+        else if(emoString == "emoji_11"){
+            val drawable = getDrawable(R.drawable.emoji_11)
+            act_record_emotion_img.setImageDrawable(drawable)
         }
     }
 }

@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
+import com.example.coling.model.ModelDayCheck
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private val TAG : String = "CreateAccount"
+    var firestore :FirebaseFirestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +47,7 @@ class SignUpActivity : AppCompatActivity() {
                             // 아니면 액티비티를 닫아 버린다.
                             finish()
                             //overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit)
+                            createDayCheck()
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.exception)
@@ -61,4 +65,16 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
+
+    fun createDayCheck() {
+        for (i in 1..100) {
+            var ModelDayChecks = ModelDayCheck()
+            ModelDayChecks.day = i
+            ModelDayChecks.day_check = false
+
+            firestore?.collection("day_checks")?.document("day_check_${auth?.currentUser?.uid}")?.collection("${i}")?.document()?.set(ModelDayChecks)
+            Log.d("${i}번째 dayCheck","생성됨 ${ModelDayChecks.day} , ${ModelDayChecks.day_check}")
+        }
+    }
+
 }

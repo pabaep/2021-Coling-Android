@@ -50,7 +50,6 @@ class ActRecordActivity : AppCompatActivity() {
         act_record_emotion_img.setOnClickListener {
             val intent = Intent(this, SelectEmotionActivity::class.java)
             startActivityForResult(intent,100)
-            //emoString = intent.getStringExtra("emo_select_string").toString()
         }
 
         act_record_photo_img.setOnClickListener {
@@ -62,6 +61,7 @@ class ActRecordActivity : AppCompatActivity() {
             //val intent = Intent(this, MainActivity::class.java)//기록 보기 화면으로 추후 전환
             //startActivity(intent)
             contentUpload()
+
 
         }
 
@@ -82,7 +82,7 @@ class ActRecordActivity : AppCompatActivity() {
         ModelRecords.date = System.currentTimeMillis()
         ModelRecords.act_name = intent.getStringExtra("act_name")
         ModelRecords.act_content = intent.getStringExtra("act_content")
-        ModelRecords.day = 999
+        ModelRecords.day = 0
         ModelRecords.emo = emoString
 
         var day = 999

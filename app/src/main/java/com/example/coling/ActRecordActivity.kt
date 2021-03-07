@@ -2,6 +2,7 @@ package com.example.coling
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.ColorSpace
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
@@ -12,6 +13,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
+import com.example.coling.model.ModelRecords
+import com.google.android.gms.auth.GoogleAuthUtil.getToken
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.activity_act_record.*
@@ -23,6 +31,8 @@ import java.util.*
 class ActRecordActivity : AppCompatActivity() {
     val REQUEST_TAKE_PHOTO = 1
     lateinit var currentPhotoPath: String
+    var auth : FirebaseAuth? = null
+    var firestore : FirebaseFirestore? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_act_record)
@@ -44,10 +54,27 @@ class ActRecordActivity : AppCompatActivity() {
         }
 
         act_record_save_btn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)//기록 보기 화면으로 추후 전환
-            startActivity(intent)
-        }
+            //val intent = Intent(this, MainActivity::class.java)//기록 보기 화면으로 추후 전환
+            //startActivity(intent)
+            contentUpload()
 
+        }
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
+    }
+    fun contentUpload(){
+        var ModelRecords = ModelRecords()
+        ModelRecords.img_src = currentPhotoPath
+        ModelRecords.uid = auth?.currentUser?.uid
+        ModelRecords.diary = act_record_short_story.text.toString()
+        ModelRecords.date = System.currentTimeMillis()
+        ModelRecords.act_name = intent.getStringExtra("act_name")
+        ModelRecords.act_content = intent.getStringExtra("act_content")
+
+        firestore?.collection("Records")?.document()?.set(ModelRecords)
+
+        finish()
     }
     fun settingPermission(){
         var permis = object  : PermissionListener {

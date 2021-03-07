@@ -15,8 +15,7 @@
 
 ## 사용할 기술 스택
 * Android Studio / Kotlin
-* Node.js
-* MySQL
+* Firebase
 * Google Cloud Platform
 
 ## 대략적인 목표

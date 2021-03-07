@@ -20,7 +20,8 @@ class SignUpActivity : AppCompatActivity() {
         val email = findViewById<EditText>(R.id.email_txt)
         val password = findViewById<EditText>(R.id.pw_txt)
 
-        val vaildEmail = Regex("^[a-zA-X0-9]([-_.]?[0-9a-zA-Z])@[a-zA-Z0-9]([-_.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}")
+        val vaildEmail = Regex("^[a-zA-Z0-9]([-_.]?[0-9a-zA-Z])@[a-zA-Z0-9]([-_.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}")
+        val email_pattern = android.util.Patterns.EMAIL_ADDRESS;
 
         signUp_btn.setOnClickListener {
             if (email.text.toString().length == 0 || password.text.toString().length == 0){
@@ -29,7 +30,7 @@ class SignUpActivity : AppCompatActivity() {
             else if(password.text.toString().length < 6){
                 Toast.makeText(this, "password는 6자리 이상이어야 합니다.", Toast.LENGTH_SHORT).show()
             }
-            else if(!email.text.toString().matches(vaildEmail)){
+            else if(!email_pattern.matcher(email.text.toString()).matches()){
                 Toast.makeText(this, "올바른 email 형식이 아닙니다.", Toast.LENGTH_SHORT).show()
             }
             else {

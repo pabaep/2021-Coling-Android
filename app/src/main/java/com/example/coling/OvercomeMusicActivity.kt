@@ -35,7 +35,7 @@ class OvercomeMusicActivity : AppCompatActivity() {
 
         btn_stop_cleaning.setOnClickListener {
             mediaplayer_cleaning?.stop()
-            Toast.makeText(this, "Stop music (cleaning)", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Stop music (Cleaning)", Toast.LENGTH_SHORT).show()
             startPlay()
         }
 
@@ -105,7 +105,7 @@ class OvercomeMusicActivity : AppCompatActivity() {
 
         btn_stop_walk.setOnClickListener {
             mediaplayer_walk?.stop()
-            Toast.makeText(this, "Stop music (Walking)", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Stop music (Walk)", Toast.LENGTH_SHORT).show()
             startPlay()
         }
 

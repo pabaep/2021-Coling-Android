@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.activity_random_act.*
 class RandomActActivity : AppCompatActivity() {
     var firestore : FirebaseFirestore? = null
     var auth :FirebaseAuth? = null
-    var actName :String = ""
-    var actContent :String = ""
+    var actName :String? = null
+    var actContent :String? = null
 
         override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +38,8 @@ class RandomActActivity : AppCompatActivity() {
             random_act_name.text = "next"
             random_act_content.text = "random"
 
-            //처음으로 띄운 randomAct화면이 아니라 Random again을 눌러서 getRandomAct가 호출된 것일때
-            // -> 넘긴 활동의 act_id에 +100하고 현user의 act_num을 +1 하는 내용 이후 추가할 것
+            //이후 수정 사항 : 처음으로 띄운 randomAct화면이 아니라 Random again을 눌러서 getRandomAct가 호출된 것일때
+            //                   -> 넘긴 활동의 act_id에 +100하고 현user의 act_num을 +1 하는 내용 이후 추가할 것
             //getRandomAct()
         }
 
@@ -52,7 +52,7 @@ class RandomActActivity : AppCompatActivity() {
 
     //RandomAct를 받아오는 함수
     fun getRandomAct(){
-        //day_num값을 받아와서 whereEqualTo의 act_id로 쓸 것
+        //이후 수정 사항 : day_num값을 받아와서 whereEqualTo의 act_id로 쓸 것
         var randomAct = firestore?.collection("Act")
         randomAct
             ?.whereEqualTo("act_check",false)

@@ -56,7 +56,9 @@ class HistoryFragment : Fragment() {
                 var startDate :Long = document.data?.get("start_date") as Long
                 day = ((getIgnoredTimeDays(nowDate)-getIgnoredTimeDays(startDate))/(246060*1000)).toInt() + 1
                 //Log.d("로그-success-days구하기","지금은 ${day} DAY")
-                getRecordChecks(day)
+
+                //[호출]현재 주차week와 그 주차에 해당하는 day_check값을 받아오는 함수
+                getWeekAndDayChecks(day)
 
             }?.addOnFailureListener{
                 Log.d("로그-fail--","user컬렉션 데이터 가져오기 실패")
@@ -136,7 +138,7 @@ class HistoryFragment : Fragment() {
         //textview_date!!.text = sdf.format(cal.getTime())
     }
 
-    //시, 분, 초, 밀리초 제외시키기
+    //timestamp에서 시, 분, 초, 밀리초 제외시키는 함수
     fun getIgnoredTimeDays(time : Long): Long {
         return Calendar.getInstance().apply {
             timeInMillis = time
@@ -147,18 +149,18 @@ class HistoryFragment : Fragment() {
         }.timeInMillis
     }
 
-    //days값에 따른 day_check를 확인하는 함수
-    fun getRecordChecks(days :Int?){
+    //현재 주차week와 그 주차의 day들에 해당하는 day_check값들을 받아오는 함수
+    fun getWeekAndDayChecks(days :Int?){
         //Log.d("로그-success에서함수호출-days확인","지금은 ${days} DAY")
 
-        //몇주차인지를 의미하는 week값을 이용해 현재 주차의 최소 day수와 최대 day수 계산하기
+        //1. get week : 몇주차인지를 의미하는 week값을 이용해 현재 주차의 최소 day수와 최대 day수 계산하기
         var week = (days?.minus(1))?.div(7)
         var minDay :Any = week?.times(7)?.plus(1)!!
         var maxDay :Any = week?.times(7)?.plus(7)!!
         history_day.text="Day ${minDay} - ${maxDay}"
         //Log.d("로그-day최대 최소값 확인--", "minDay ${minDay} maxDay ${maxDay}")
 
-        //day범위에 해당하는 day_checks값 받아오기
+        //2. get record checks : day범위에 해당하는 day_check값들 받아오기
         firestore?.collection("day_checks")?.document("day_check_${uid}")?.collection("day")
             ?.whereGreaterThanOrEqualTo("day", minDay)
             ?.whereLessThanOrEqualTo("day", maxDay)
@@ -174,7 +176,7 @@ class HistoryFragment : Fragment() {
                 //Log.d("로그-success-day기간 내 문서7개", sevenDayChecks.toString())
                 //Log.d("로그-success-받아온 데이터 길이확인", sevenDayChecks.size.toString())
 
-                //dayCheck값에 따라 7개의 이미지 소스 넣는 함수
+                //[호출]dayCheck값에 따라 7개의 이미지 소스 넣고 setOnClickListener다는 함수
                 setRecordCheckImages(sevenDayChecks)
             }
             ?.addOnFailureListener {
@@ -184,7 +186,7 @@ class HistoryFragment : Fragment() {
 
     //day_check값에 따라 이미지를 바꾸고, setOnClickListener를 달아서 기록한 날은 자세한 기록페이지로 이동, 기록하지 않은 날은 토스트메세지 뜨게 함.
     fun setRecordCheckImages(sevenDayChecks :ArrayList<Boolean?>){
-        var noRecordToast = Toast.makeText(activity, "기록을 하지 않은 날짜입니다.", Toast.LENGTH_SHORT)
+        var noRecordToast = Toast.makeText(activity, "There is no record for this date.", Toast.LENGTH_SHORT)
         if(sevenDayChecks[0] != null){
             if(sevenDayChecks[0] == true){
                 check_1.setImageResource(R.drawable.tabbar_icon_overcome)

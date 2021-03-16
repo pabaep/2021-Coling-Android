@@ -53,7 +53,7 @@
             android:layout_margin="20dp"
             android:fontFamily="@font/bmhnnnaair"
             android:gravity="center_horizontal"
-            android:text="Watering the plant"
+            android:text="Loading . ."
             android:textColor="@color/darkgreen"
             android:textSize="30sp" />
 
@@ -65,7 +65,7 @@
             android:layout_margin="20dp"
             android:fontFamily="@font/bmhnnnaair"
             android:gravity="center_horizontal"
-            android:text="How about watering the plant?Looking at the fresh grass,Put your worries down for a while."
+            android:text=""
             android:textColor="@color/darkgreen"
             android:textSize="20sp" />
 

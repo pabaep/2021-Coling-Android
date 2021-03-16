@@ -71,13 +71,13 @@ class SignUpActivity : AppCompatActivity() {
         for (i in 1..100) {
             var modelDayChecks = ModelDayCheck()
             modelDayChecks.day = i
-            modelDayChecks.day_check = false
+            modelDayChecks.day_check = null
 
             var modelActChecks = ModelActCheck()
             modelActChecks.act_id = i
             modelActChecks.act_check = false
 
-            firestore?.collection("day_checks")?.document("day_check_${auth?.currentUser?.uid}")?.collection("${i}")?.document()?.set(modelDayChecks)
+            firestore?.collection("day_checks")?.document("day_check_${auth?.currentUser?.uid}")?.collection("day")?.document("day${i}")?.set(modelDayChecks)
             firestore?.collection("act_checks")?.document("act_check_${auth?.currentUser?.uid}")?.collection("act")?.document("act${i}")?.set(modelActChecks)
         }
     }

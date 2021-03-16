@@ -155,6 +155,7 @@ class HistoryFragment : Fragment() {
         var week = (days?.minus(1))?.div(7)
         var minDay :Any = week?.times(7)?.plus(1)!!
         var maxDay :Any = week?.times(7)?.plus(7)!!
+        history_day.text="Day ${minDay} - ${maxDay}"
         //Log.d("로그-day최대 최소값 확인--", "minDay ${minDay} maxDay ${maxDay}")
 
         //day범위에 해당하는 day_checks값 받아오기

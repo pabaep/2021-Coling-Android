@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2.5dp"
                 android:layout_weight="1"
-                android:src="@drawable/tabbar_icon_overcome" />
+                android:src="@drawable/check_empty_record" />
 
             <ImageView
                 android:id="@+id/check_2"
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2.5dp"
                 android:layout_weight="1"
-                android:src="@drawable/no_record" />
+                android:src="@drawable/check_empty_record" />
 
             <ImageView
                 android:id="@+id/check_3"
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2.5dp"
                 android:layout_weight="1"
-                android:src="@drawable/no_record" />
+                android:src="@drawable/check_empty_record" />
 
             <ImageView
                 android:id="@+id/check_4"
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2.5dp"
                 android:layout_weight="1"
-                android:src="@drawable/no_record" />
+                android:src="@drawable/check_empty_record" />
         </LinearLayout>
 
         <LinearLayout
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2.5dp"
                 android:layout_weight="2"
-                android:src="@drawable/no_record" />
+                android:src="@drawable/check_empty_record" />
 
             <ImageView
                 android:id="@+id/check_6"
@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2.5dp"
                 android:layout_weight="2"
-                android:src="@drawable/no_record" />
+                android:src="@drawable/check_empty_record" />
 
             <ImageView
                 android:id="@+id/check_7"
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2.5dp"
                 android:layout_weight="2"
-                android:src="@drawable/no_record" />
+                android:src="@drawable/check_empty_record" />
 
             <View
                 android:layout_width="0dp"

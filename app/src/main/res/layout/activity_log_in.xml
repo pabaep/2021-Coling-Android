@@ -33,6 +33,7 @@
                 app:srcCompat="@drawable/img_coling" />
 
             <EditText
+                android:text="aa@aa.com"
                 android:id="@+id/login_email_txt"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -46,6 +47,7 @@
                 android:textColor="@color/darkgreen" />
 
             <EditText
+                android:text="000000"
                 android:id="@+id/login_pw_txt"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"

@@ -9,9 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_history.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,6 +32,12 @@ class HistoryFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     var cal = Calendar.getInstance()
+    var firestore :FirebaseFirestore? = null
+    var auth :FirebaseAuth? = null
+    var uid :String? = null
+    var nowDate :Long = System.currentTimeMillis()
+    var day :Int? = null
+    var sevenDayChecks :ArrayList<Boolean?> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +45,23 @@ class HistoryFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        firestore = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
+        uid = auth?.currentUser?.uid
+        //기록여부 확인, 새싹 이미지 소스 지정
+        firestore?.collection("Users")?.document("user_${uid}")
+            ?.get()
+            ?.addOnSuccessListener { document->
+                var startDate :Long = document.data?.get("start_date") as Long
+                day = ((getIgnoredTimeDays(nowDate)-getIgnoredTimeDays(startDate))/(246060*1000)).toInt() + 1
+                //Log.d("로그-success-days구하기","지금은 ${day} DAY")
+                getRecordChecks(day)
+
+            }?.addOnFailureListener{
+                Log.d("로그-fail--","user컬렉션 데이터 가져오기 실패")
+            }
+
     }
 
     override fun onCreateView(
@@ -47,11 +74,6 @@ class HistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //새싹 이미지 클릭 시 자세한 기록 보여주는 함수 readDetail()호출
-        check_1.setOnClickListener{
-            readDetail()
-        }
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
@@ -112,5 +134,149 @@ class HistoryFragment : Fragment() {
         val myFormat = "MM/dd/yyyy" // mention the format you need
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         //textview_date!!.text = sdf.format(cal.getTime())
+    }
+
+    //시, 분, 초, 밀리초 제외시키기
+    fun getIgnoredTimeDays(time : Long): Long {
+        return Calendar.getInstance().apply {
+            timeInMillis = time
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.timeInMillis
+    }
+
+    //days값에 따른 day_check를 확인하는 함수
+    fun getRecordChecks(days :Int?){
+        //Log.d("로그-success에서함수호출-days확인","지금은 ${days} DAY")
+
+        //몇주차인지를 의미하는 week값을 이용해 현재 주차의 최소 day수와 최대 day수 계산하기
+        var week = (days?.minus(1))?.div(7)
+        var minDay :Any = week?.times(7)?.plus(1)!!
+        var maxDay :Any = week?.times(7)?.plus(7)!!
+        //Log.d("로그-day최대 최소값 확인--", "minDay ${minDay} maxDay ${maxDay}")
+
+        //day범위에 해당하는 day_checks값 받아오기
+        firestore?.collection("day_checks")?.document("day_check_${uid}")?.collection("day")
+            ?.whereGreaterThanOrEqualTo("day", minDay)
+            ?.whereLessThanOrEqualTo("day", maxDay)
+            ?.get()
+            ?.addOnSuccessListener {documents ->
+                for(doc in documents){
+                    if(doc.data["day_check"] != null){
+                        sevenDayChecks.add(doc.data["day_check"] as Boolean)
+                    }else{
+                        sevenDayChecks.add(null)
+                    }
+                }
+                //Log.d("로그-success-day기간 내 문서7개", sevenDayChecks.toString())
+                //Log.d("로그-success-받아온 데이터 길이확인", sevenDayChecks.size.toString())
+
+                //dayCheck값에 따라 7개의 이미지 소스 넣는 함수
+                setRecordCheckImages(sevenDayChecks)
+            }
+            ?.addOnFailureListener {
+                Log.d("로그-day기간 내 문서7개 받아오기--","실패 . . . ")
+            }
+    }
+
+    //day_check값에 따라 이미지를 바꾸고, setOnClickListener를 달아서 기록한 날은 자세한 기록페이지로 이동, 기록하지 않은 날은 토스트메세지 뜨게 함.
+    fun setRecordCheckImages(sevenDayChecks :ArrayList<Boolean?>){
+        var noRecordToast = Toast.makeText(activity, "기록을 하지 않은 날짜입니다.", Toast.LENGTH_SHORT)
+        if(sevenDayChecks[0] != null){
+            if(sevenDayChecks[0] == true){
+                check_1.setImageResource(R.drawable.tabbar_icon_overcome)
+                //새싹 이미지 클릭 시 자세한 기록 보여주는 함수 readDetail()호출
+                check_1.setOnClickListener{
+                    readDetail()
+                }
+            }else if(sevenDayChecks[0] == false){
+                check_1.setImageResource(R.drawable.check_no_record)
+                //기록하지 않은 날짜 새싹 클릭 시 토스트 메세지 띄움
+                check_1.setOnClickListener{
+                    noRecordToast.show()
+                }
+            }
+        }
+        if(sevenDayChecks[1] != null){
+            if(sevenDayChecks[1] == true){
+                check_2.setImageResource(R.drawable.tabbar_icon_overcome)
+                check_2.setOnClickListener{
+                    readDetail()
+                }
+            }else if(sevenDayChecks[1] == false){
+                check_2.setImageResource(R.drawable.check_no_record)
+                check_2.setOnClickListener{
+                    noRecordToast.show()
+                }
+            }
+        }
+        if(sevenDayChecks[2] != null){
+            if(sevenDayChecks[2] == true){
+                check_3.setImageResource(R.drawable.tabbar_icon_overcome)
+                check_3.setOnClickListener{
+                    readDetail()
+                }
+            }else if(sevenDayChecks[2] == false){
+                check_3.setImageResource(R.drawable.check_no_record)
+                check_3.setOnClickListener{
+                    noRecordToast.show()
+                }
+            }
+        }
+        if(sevenDayChecks[3] != null){
+            if(sevenDayChecks[3] == true){
+                check_4.setImageResource(R.drawable.tabbar_icon_overcome)
+                check_4.setOnClickListener{
+                    readDetail()
+                }
+            }else if(sevenDayChecks[3] == false){
+                check_4.setImageResource(R.drawable.check_no_record)
+                check_4.setOnClickListener{
+                    noRecordToast.show()
+                }
+            }
+        }
+        if(sevenDayChecks[4] != null){
+            if(sevenDayChecks[4] == true){
+                check_5.setImageResource(R.drawable.tabbar_icon_overcome)
+                check_5.setOnClickListener{
+                    readDetail()
+                }
+            }else if(sevenDayChecks[4] == false){
+                check_5.setImageResource(R.drawable.check_no_record)
+                check_5.setOnClickListener{
+                    noRecordToast.show()
+                }
+            }
+        }
+        if(sevenDayChecks[5] != null){
+            if(sevenDayChecks[5] == true){
+                check_6.setImageResource(R.drawable.tabbar_icon_overcome)
+                check_6.setOnClickListener{
+                    readDetail()
+                }
+            }else if(sevenDayChecks[5] == false){
+                check_6.setImageResource(R.drawable.check_no_record)
+                check_6.setOnClickListener{
+                    noRecordToast.show()
+                }
+            }
+        }
+        if(sevenDayChecks[6] != null){
+            if(sevenDayChecks[6] == true){
+                check_7.setImageResource(R.drawable.tabbar_icon_overcome)
+                check_7.setOnClickListener{
+                    readDetail()
+                }
+            }else if(sevenDayChecks[6] == false){
+                check_7.setImageResource(R.drawable.check_no_record)
+                check_7.setOnClickListener{
+                    noRecordToast.show()
+                }
+            }
+        }
+
     }
 }

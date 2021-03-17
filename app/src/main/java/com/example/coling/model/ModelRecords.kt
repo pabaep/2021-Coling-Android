@@ -1,7 +1,7 @@
 package com.example.coling.model
 
 data class ModelRecords(var uid : String? = null,
-                        var day : Int? = null,
+                        var day : Long? = null,
                         var date : Long? = null,
                         var act_id : Int? = null,
                         var act_name : String? = null,

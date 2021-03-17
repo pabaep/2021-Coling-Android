@@ -24,7 +24,9 @@ class RandomActActivity : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
 
+
         getRandomAct()
+
 
         btn_doit.setOnClickListener{
             val intent = Intent(this, ActRecordActivity::class.java)

@@ -1,7 +1,6 @@
 package com.example.coling
 
 import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -9,33 +8,34 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import com.example.coling.model.ModelRecords
-import com.google.android.gms.auth.GoogleAuthUtil.getToken
+import com.example.coling.model.ModelUser
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.activity_act_record.*
 import java.io.File
 import java.io.IOException
-import java.lang.Byte.decode
 import java.text.SimpleDateFormat
+import android.util.Log
 import java.util.*
+
 
 class ActRecordActivity : AppCompatActivity() {
     val REQUEST_TAKE_PHOTO = 1
     lateinit var currentPhotoPath: String
+    private val TAG : String = "getUserInfo"
     var auth : FirebaseAuth? = null
     var firestore : FirebaseFirestore? = null
     var emoString : String = ""
+    var startDate : Long? = null
+    var day : Long = 0
+    var ModelUser = ModelUser()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,26 +74,82 @@ class ActRecordActivity : AppCompatActivity() {
         }*/
 
     }
+
     fun contentUpload(){
-        var ModelRecords = ModelRecords()
-        ModelRecords.img_src = currentPhotoPath
-        ModelRecords.uid = auth?.currentUser?.uid
-        ModelRecords.diary = act_record_short_story.text.toString()
-        ModelRecords.date = System.currentTimeMillis()
-        ModelRecords.act_name = intent.getStringExtra("act_name")
-        ModelRecords.act_content = intent.getStringExtra("act_content")
-        ModelRecords.day = 0
-        ModelRecords.emo = emoString
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
-        var day = 999
+        getStartDate()
 
-        firestore?.collection("Records")?.document("record_${auth?.currentUser?.uid}")?.collection("$day")?.document()?.set(ModelRecords)
 
 
         finish()
     }
 
+    //StartDate를 받아오는 함수
+    fun getStartDate(){
+        firestore?.collection("Users")
+            ?.whereEqualTo("uid", auth?.currentUser?.uid)
+            ?.get()
+            ?.addOnSuccessListener { documents ->
+                for (document in documents) {
+                    //Log.d("로그3-1--", "${document.id} => ${document.data}")
+                    //Log.d("로그-3-2-특정 key값만", document.data["start_date"].toString())
+                    startDate = document.data["start_date"] as Long
+                    Log.d("로그-4-0--",startDate.toString()+"나오나요...")
+                    break
+                }
+                Log.d("로그-4-1--",startDate.toString()+"나오나요...")
+                if(startDate == null){
+                    ModelUser.uid = auth?.currentUser?.uid
+                    ModelUser.start_date = System.currentTimeMillis()
+                    //user데이터 업로드
+                    day = 1
+                    firestore?.collection("Users")?.document("user_${auth?.currentUser?.uid}")?.set(ModelUser)
+                }
+                //else는 들어가는데 정보 가져오는 건 안됨
+                //day 다시 계산하기 - day를 long으로 정의?
+                else {
+                    val nowDate = Calendar.getInstance().apply {
+                        set(Calendar.YEAR, 2021)
+                        set(Calendar.MONTH, 2)
+                        set(Calendar.DATE, 21)
+                    }.timeInMillis
+                    //val nowDate = System.currentTimeMillis()
+                    Log.d("로그-5-0--",nowDate.toString())
 
+                    day = (nowDate - startDate!!)/(24*60*60*1000) + 1
+
+                }
+                //레코드 업로드 부분
+                var ModelRecords = ModelRecords()
+                ModelRecords.img_src = currentPhotoPath
+                ModelRecords.uid = auth?.currentUser?.uid
+                ModelRecords.diary = act_record_short_story.text.toString()
+                ModelRecords.date = System.currentTimeMillis()
+                ModelRecords.act_name = intent.getStringExtra("act_name")
+                ModelRecords.act_content = intent.getStringExtra("act_content")
+                ModelRecords.day = day
+                ModelRecords.emo = emoString
+                //레코드 업로드
+                firestore?.collection("Records")?.document("record_${auth?.currentUser?.uid}")?.collection("$day")?.document()?.set(ModelRecords)
+
+            }
+            ?.addOnFailureListener{
+                Log.d("로그-3-3--","실패 . . . . ")
+            }
+    }
+
+    //시간, 분, 초, 밀리초 제외시키기
+    fun getIgnoredTimeDays(time : Long): Long{
+        return Calendar.getInstance().apply {
+            timeInMillis = time
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.timeInMillis
+    }
 
     fun settingPermission(){
         var permis = object  : PermissionListener {

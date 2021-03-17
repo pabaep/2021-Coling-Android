@@ -305,6 +305,17 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/bmjua"
+                android:gravity="center"
+                android:text="Music: https://www.bensound.com"
+                android:textColor="@color/gray"
+                android:textSize="8sp" />
+
         </LinearLayout>
     </ScrollView>
 

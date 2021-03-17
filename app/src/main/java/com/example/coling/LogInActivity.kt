@@ -31,7 +31,7 @@ class LogInActivity : AppCompatActivity() {
         }
         login_btn.setOnClickListener {
             if (email.text.toString().length == 0 || password.text.toString().length == 0){
-                Toast.makeText(this, "email 혹은 password를 반드시 입력하세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please enter the email or password", Toast.LENGTH_SHORT).show()
             } else {
                 auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
                     .addOnCompleteListener(this) { task ->
@@ -66,12 +66,12 @@ class LogInActivity : AppCompatActivity() {
 
     fun updateUI(cUser : FirebaseUser? = null){
         if(cUser != null) {
-            Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
 
         } else {
-            Toast.makeText(this, "로그인 필요", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Login Required", Toast.LENGTH_SHORT).show()
 
         }
         login_email_txt.setText("")

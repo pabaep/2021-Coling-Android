@@ -29,13 +29,13 @@ class SignUpActivity : AppCompatActivity() {
 
         signUp_btn.setOnClickListener {
             if (email.text.toString().length == 0 || password.text.toString().length == 0){
-                Toast.makeText(this, "email 혹은 password를 반드시 입력하세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please enter the email or password", Toast.LENGTH_SHORT).show()
             }
             else if(password.text.toString().length < 6){
-                Toast.makeText(this, "password는 6자리 이상이어야 합니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Password must be at least 6 digits", Toast.LENGTH_SHORT).show()
             }
             else if(!email_pattern.matcher(email.text.toString()).matches()){
-                Toast.makeText(this, "올바른 email 형식이 아닙니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Not a valid email format", Toast.LENGTH_SHORT).show()
             }
             else {
                 auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString())

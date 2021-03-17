@@ -8,10 +8,12 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
+import com.example.coling.model.ModelDayCheck
 import com.example.coling.model.ModelRecords
 import com.example.coling.model.ModelUser
 import com.google.firebase.auth.FirebaseAuth
@@ -21,8 +23,8 @@ import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.activity_act_record.*
 import java.io.File
 import java.io.IOException
+import java.text.DateFormat
 import java.text.SimpleDateFormat
-import android.util.Log
 import java.util.*
 
 
@@ -36,11 +38,14 @@ class ActRecordActivity : AppCompatActivity() {
     var startDate : Long? = null
     var day : Long = 0
     var ModelUser = ModelUser()
+    var date_lbl :String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_act_record)
-
+        val df: DateFormat = SimpleDateFormat("MM.dd.yyyy")
+        val str = df.format(System.currentTimeMillis()) //일단은 수정 고려 안하고 현재 시간 집어 넣음
+        textView2.text = str
         settingPermission() //권한 설정
 
         back_btn.setOnClickListener {
@@ -110,12 +115,13 @@ class ActRecordActivity : AppCompatActivity() {
                 //else는 들어가는데 정보 가져오는 건 안됨
                 //day 다시 계산하기 - day를 long으로 정의?
                 else {
-                    val nowDate = Calendar.getInstance().apply {
+                    //여기가 임의로 미래 날짜 지정하는 부분임
+                    /*val nowDate = Calendar.getInstance().apply {
                         set(Calendar.YEAR, 2021)
                         set(Calendar.MONTH, 2)
                         set(Calendar.DATE, 21)
-                    }.timeInMillis
-                    //val nowDate = System.currentTimeMillis()
+                    }.timeInMillis*/
+                    val nowDate = System.currentTimeMillis()
                     Log.d("로그-5-0--",nowDate.toString())
 
                     day = (nowDate - startDate!!)/(24*60*60*1000) + 1
@@ -133,6 +139,12 @@ class ActRecordActivity : AppCompatActivity() {
                 ModelRecords.emo = emoString
                 //레코드 업로드
                 firestore?.collection("Records")?.document("record_${auth?.currentUser?.uid}")?.collection("$day")?.document()?.set(ModelRecords)
+
+                var ModelDayCheck = ModelDayCheck()
+                ModelDayCheck.day_check = true
+
+                firestore?.collection("day_checks")?.document("day_check_${auth?.currentUser?.uid}")?.collection("day")?.document("day${day}")?.set(ModelDayCheck)
+
 
             }
             ?.addOnFailureListener{
@@ -155,12 +167,12 @@ class ActRecordActivity : AppCompatActivity() {
         var permis = object  : PermissionListener {
             //            어떠한 형식을 상속받는 익명 클래스의 객체를 생성하기 위해 다음과 같이 작성
             override fun onPermissionGranted() {
-                Toast.makeText(this@ActRecordActivity, "권한 허가", Toast.LENGTH_SHORT)
+                Toast.makeText(this@ActRecordActivity, "Authorized", Toast.LENGTH_SHORT)
                     .show()
             }
 
             override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                Toast.makeText(this@ActRecordActivity, "권한 거부", Toast.LENGTH_SHORT)
+                Toast.makeText(this@ActRecordActivity, "Permission Denied", Toast.LENGTH_SHORT)
                     .show()
                 ActivityCompat.finishAffinity(this@ActRecordActivity) // 권한 거부시 앱 종료
             }
@@ -168,8 +180,8 @@ class ActRecordActivity : AppCompatActivity() {
 
         TedPermission.with(this)
             .setPermissionListener(permis)
-            .setRationaleMessage("카메라 사진 권한 필요")
-            .setDeniedMessage("카메라 권한 요청 거부")
+            .setRationaleMessage("Requires camera picture permission")
+            .setDeniedMessage("Reject Camera Permission Request")
             .setPermissions(
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
 //                android.Manifest.permission.READ_EXTERNAL_STORAGE,

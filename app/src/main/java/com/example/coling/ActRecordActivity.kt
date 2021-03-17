@@ -118,7 +118,7 @@ class ActRecordActivity : AppCompatActivity() {
                     //여기가 임의로 미래 날짜 지정하는 부분임
                     /*val nowDate = Calendar.getInstance().apply {
                         set(Calendar.YEAR, 2021)
-                        set(Calendar.MONTH, 2)
+                        set(Calendar.MONTH, 2)  // 얘가 0이 1월 달임
                         set(Calendar.DATE, 21)
                     }.timeInMillis*/
                     val nowDate = System.currentTimeMillis()

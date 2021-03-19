@@ -30,7 +30,7 @@ import java.util.*
 
 class ActRecordActivity : AppCompatActivity() {
     val REQUEST_TAKE_PHOTO = 1
-    lateinit var currentPhotoPath: String
+    var currentPhotoPath: String = ""
     private val TAG : String = "getUserInfo"
     var auth : FirebaseAuth? = null
     var firestore : FirebaseFirestore? = null
@@ -88,7 +88,7 @@ class ActRecordActivity : AppCompatActivity() {
 
 
 
-        finish()
+        //finish()
     }
 
     //StartDate를 받아오는 함수
@@ -138,13 +138,30 @@ class ActRecordActivity : AppCompatActivity() {
                 ModelRecords.day = day
                 ModelRecords.emo = emoString
                 //레코드 업로드
-                firestore?.collection("Records")?.document("record_${auth?.currentUser?.uid}")?.collection("day")?.document("day${day}")?.set(ModelRecords)
+                if(ModelRecords.img_src == ""){
+                    Toast.makeText(this, "Please take a photo", Toast.LENGTH_SHORT).show()
+                }
+                else if(ModelRecords.emo == ""){
+                    Toast.makeText(this, "Please choose your emotion", Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    firestore?.collection("Records")?.document("record_${auth?.currentUser?.uid}")
+                        ?.collection("day")?.document("day${day}")?.set(ModelRecords)
 
-                var ModelDayCheck = ModelDayCheck()
-                ModelDayCheck.day_check = true
+                    var ModelDayCheck = ModelDayCheck()
+                    ModelDayCheck.day_check = true
 
-                firestore?.collection("day_checks")?.document("day_check_${auth?.currentUser?.uid}")?.collection("day")?.document("day${day}")?.set(ModelDayCheck)
+                    /*firestore?.collection("day_checks")
+                        ?.document("day_check_${auth?.currentUser?.uid}")?.collection("day")
+                        ?.document("day${day}")?.set(ModelDayCheck)*/
+                    firestore?.collection("day_checks")
+                        ?.document("day_check_${auth?.currentUser?.uid}")
+                        ?.collection("day")?.document("day${day}")
+                        ?.update("day_check",true)
 
+
+                    finish()
+                }
 
             }
             ?.addOnFailureListener{

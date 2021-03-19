@@ -138,7 +138,7 @@ class ActRecordActivity : AppCompatActivity() {
                 ModelRecords.day = day
                 ModelRecords.emo = emoString
                 //레코드 업로드
-                firestore?.collection("Records")?.document("record_${auth?.currentUser?.uid}")?.collection("$day")?.document()?.set(ModelRecords)
+                firestore?.collection("Records")?.document("record_${auth?.currentUser?.uid}")?.collection("day")?.document("day${day}")?.set(ModelRecords)
 
                 var ModelDayCheck = ModelDayCheck()
                 ModelDayCheck.day_check = true

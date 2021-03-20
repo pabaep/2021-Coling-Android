@@ -20,7 +20,7 @@ class RandomActActivity : AppCompatActivity() {
     var actName :String? = null
     var actContent :String? = null
     var actNum :Int? = null
-    var againClicked :Boolean = false
+    var todayAgain :Boolean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +29,13 @@ class RandomActActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         uid = auth?.currentUser?.uid
 
-        //다른 액티비티에서 기록 save를 눌렀을 때 putExtra로 againClicked값을 true로 보내줄 것임.
-        val intent = intent
-        againClicked = intent.getBooleanExtra("againClicked",false)
+        //오늘 이 유저가 randomAgain을 눌렀는지 확인하는 값 가져오기
+        firestore?.collection("Users")?.document("user_${uid}")?.get()
+            ?.addOnSuccessListener{ doc->
+                todayAgain = doc?.data?.get("today_again") as Boolean
+                Log.d("로그-0success-today_again","${ doc?.data?.get("today_again") }")
+                Log.d("로그-0-success-todayAgain","${ todayAgain }")
+            }?.addOnFailureListener { Log.d("로그-0-fail-","실패 . . . .") }
 
         firestore?.collection("Users")?.document("user_${uid}")
             ?.get()
@@ -53,13 +57,18 @@ class RandomActActivity : AppCompatActivity() {
 
         btn_random_again.setOnClickListener {
             //Log.d("로그-2-againClicked","againClicked ${againClicked}")
-            if(!againClicked){
+            if(!todayAgain!!){
                 //[호출]활동을 넘길 때 넘긴 활동의 act_id에 +100함. getRandomAct와 actNumPlusOne도 호출.
                 RandomAgain()
-                againClicked = true
+                todayAgain = true
                 //Log.d("로그-2-again에 Listener","실행끝")
                 //Log.d("로그-2-againClicked","againClicked ${againClicked}")
-            }else if(againClicked){
+                firestore?.collection("Users")?.document("user_${uid}")
+                    ?.update("today_again",true)
+                    ?.addOnSuccessListener {
+                        Log.d("로그-2-2-success-update","today_again을 true로 성공")
+                    }?.addOnFailureListener{ Log.d("로그-2-2-fail-update","실패 . . . .") }
+            }else if(todayAgain!!){
                 Toast.makeText(this,"The activity can only be re-recommended once a day.",Toast.LENGTH_LONG).show()
                 //Log.d("로그-2-2-againClicked","againClicked ${againClicked}")
             }
@@ -72,14 +81,15 @@ class RandomActActivity : AppCompatActivity() {
             val intent = Intent(this, ActRecordActivity::class.java)
             intent.putExtra("act_name", actName)
             intent.putExtra("act_content", actContent)
-            intent.putExtra("againClicked", againClicked)
+            intent.putExtra("act_num", actNum)
             startActivity(intent)
 
             //[호출]지금 실행한 활동 act_check를 true로 바꾸기.
             actCheckTrue()
 
+/*//세원언니 수정 이후 이부분 코드 지우기!!!!!!
             //[호출]활동을 하나 한거니까 현 user의 actNum +1하기
-            actNumPlusOne(false)
+            actNumPlusOne(false)*/
 
         }
 
@@ -142,7 +152,6 @@ class RandomActActivity : AppCompatActivity() {
             actNum = actNum?.plus(1)
             Log.d("로그-4-after-actNum+1","actNum ${actNum}")
         }
-
     }
 
     fun actCheckTrue(){

@@ -87,9 +87,9 @@ class RandomActActivity : AppCompatActivity() {
             //[호출]지금 실행한 활동 act_check를 true로 바꾸기.
             actCheckTrue()
 
-//세원언니 수정 이후 이부분 코드 지우기!!!!!!
+/*//세원언니 수정 이후 이부분 코드 지우기!!!!!!
             //[호출]활동을 하나 한거니까 현 user의 actNum +1하기
-            actNumPlusOne(false)
+            actNumPlusOne(false)*/
 
         }
 
@@ -152,7 +152,6 @@ class RandomActActivity : AppCompatActivity() {
             actNum = actNum?.plus(1)
             Log.d("로그-4-after-actNum+1","actNum ${actNum}")
         }
-
     }
 
     fun actCheckTrue(){

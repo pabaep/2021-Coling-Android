@@ -69,7 +69,7 @@ class MainScreenFragment : Fragment() {
             ?.get()
             ?.addOnSuccessListener { documents ->
                 for (document in documents) {
-                    startDate = document.data["start_date"] as Long
+                    startDate = document.data["start_date"] as Long?
                     break
                 }
                 Log.d("로그-4-1--",startDate.toString()+"나오나요...")

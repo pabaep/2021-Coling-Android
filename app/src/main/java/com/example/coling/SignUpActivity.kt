@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.coling.model.ModelActCheck
 import com.example.coling.model.ModelDayCheck
+import com.example.coling.model.ModelUser
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -15,6 +16,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private val TAG : String = "CreateAccount"
     var firestore :FirebaseFirestore = FirebaseFirestore.getInstance()
+    var ModelUser = ModelUser()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +51,9 @@ class SignUpActivity : AppCompatActivity() {
                             finish()
                             //overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit)
                             createDayAndActCheck()
+                            ModelUser.uid = auth?.currentUser?.uid
+                            firestore?.collection("Users")?.document("user_${auth?.currentUser?.uid}")?.set(ModelUser)
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.exception)

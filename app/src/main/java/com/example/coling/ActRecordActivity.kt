@@ -38,7 +38,7 @@ class ActRecordActivity : AppCompatActivity() {
     var startDate : Long? = null
     var day : Long = 0
     var ModelUser = ModelUser()
-    var date_lbl :String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,10 +74,6 @@ class ActRecordActivity : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
 
 
-        /*if(emoString.isNotEmpty()){
-            findEmo()
-        }*/
-
     }
 
     fun contentUpload(){
@@ -86,9 +82,6 @@ class ActRecordActivity : AppCompatActivity() {
 
         getStartDate()
 
-
-
-        //finish()
     }
 
     //StartDate를 받아오는 함수
@@ -100,17 +93,19 @@ class ActRecordActivity : AppCompatActivity() {
                 for (document in documents) {
                     //Log.d("로그3-1--", "${document.id} => ${document.data}")
                     //Log.d("로그-3-2-특정 key값만", document.data["start_date"].toString())
-                    startDate = document.data["start_date"] as Long
+                    startDate = document.data["start_date"] as Long?
                     Log.d("로그-4-0--",startDate.toString()+"나오나요...")
                     break
                 }
                 Log.d("로그-4-1--",startDate.toString()+"나오나요...")
                 if(startDate == null){
-                    ModelUser.uid = auth?.currentUser?.uid
-                    ModelUser.start_date = System.currentTimeMillis()
+                    /*ModelUser.uid = auth?.currentUser?.uid
+                    ModelUser.start_date = System.currentTimeMillis()*/
                     //user데이터 업로드
                     day = 1
-                    firestore?.collection("Users")?.document("user_${auth?.currentUser?.uid}")?.set(ModelUser)
+                    firestore?.collection("Users")
+                        ?.document("user_${auth?.currentUser?.uid}")
+                        ?.update("start_date",System.currentTimeMillis())
                 }
                 //else는 들어가는데 정보 가져오는 건 안됨
                 //day 다시 계산하기 - day를 long으로 정의?
@@ -149,6 +144,8 @@ class ActRecordActivity : AppCompatActivity() {
                         ?.collection("day")?.document("day${day}")?.set(ModelRecords)
 
                     var ModelDayCheck = ModelDayCheck()
+                    var act_num = intent.getIntExtra("act_num",0)
+                    //Log.d("로그-6-0--","act_num + ${act_num}")
                     ModelDayCheck.day_check = true
 
                     /*firestore?.collection("day_checks")
@@ -158,7 +155,9 @@ class ActRecordActivity : AppCompatActivity() {
                         ?.document("day_check_${auth?.currentUser?.uid}")
                         ?.collection("day")?.document("day${day}")
                         ?.update("day_check",true)
-
+                    firestore?.collection("Users")
+                        ?.document("user_${auth?.currentUser?.uid}")
+                        ?.update("act_num",act_num+1,"today_again",false)
 
                     finish()
                 }

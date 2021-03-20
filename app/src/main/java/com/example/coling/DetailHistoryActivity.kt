@@ -1,8 +1,10 @@
 package com.example.coling
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.text.Editable
 import android.util.Log
 import android.view.Gravity
@@ -12,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_act_record.*
 import kotlinx.android.synthetic.main.activity_detail_history.*
+import java.io.File
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 
@@ -67,7 +70,8 @@ class DetailHistoryActivity : AppCompatActivity() {
                 //화면에 출력
                 detail_date.text = df.format(date)
 
-                //사진출력하는 방법
+                //[호출]사진 화면에 띄우는 함수
+                setPhoto(imgSrc)
 
                 detail_act_name.text = actName
                 detail_act_content.text = actContent
@@ -132,8 +136,17 @@ class DetailHistoryActivity : AppCompatActivity() {
         }
     }
 
+    //사진 화면에 띄우는 함수
+    fun setPhoto(imgSrc :String?){
+        //절대경로의 이미지 파일을 bitmap으로 불러오고
+        var bitmap = BitmapFactory.decodeFile(imgSrc)
+        //bitmap개체를 ImageView에 보여줌
+        detail_photo.setImageBitmap(bitmap)
+    }
+
+
     fun setEmoImage(emo :String?){
-        Log.d("로그--emo-","emo ${emo}")
+        //Log.d("로그--emo-","emo ${emo}")
         if(emo == "emoji_1"){
             detail_emotion.setImageResource(R.drawable.emoji_1)
         }

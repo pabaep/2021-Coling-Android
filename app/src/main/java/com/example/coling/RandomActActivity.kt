@@ -33,8 +33,8 @@ class RandomActActivity : AppCompatActivity() {
         firestore?.collection("Users")?.document("user_${uid}")?.get()
             ?.addOnSuccessListener{ doc->
                 todayAgain = doc?.data?.get("today_again") as Boolean
-                Log.d("로그-0success-today_again","${ doc?.data?.get("today_again") }")
-                Log.d("로그-0-success-todayAgain","${ todayAgain }")
+                //Log.d("로그-0success-today_again","${ doc?.data?.get("today_again") }")
+                //Log.d("로그-0-success-todayAgain","${ todayAgain }")
             }?.addOnFailureListener { Log.d("로그-0-fail-","실패 . . . .") }
 
         firestore?.collection("Users")?.document("user_${uid}")
@@ -45,14 +45,12 @@ class RandomActActivity : AppCompatActivity() {
                 //act_num을 받아오고 보니 int가 아니라 long 형이라서 long 변수로 받아온 다음 int로 변환함. (값을 완전히 받아오기 전에는 Any로 취급해서 형변환이 안됨.)
                 var actNumLong :Long = document.data?.get("act_num") as Long
                 actNum = actNumLong.toInt()
-                Log.d("로그-1-success-actNum받아오기","actNum ${actNum}")
+                //Log.d("로그-1-success-actNum받아오기","actNum ${actNum}")
 
                 //[호출]현 user의 actNum과 act_id가 같은 randomAct 이름과 내용 받아오기
                 getRandomAct(actNum)
             }
-            ?.addOnFailureListener{
-                Log.d("로그-1-actNum받아오기-","실패 . . . ")
-            }
+            ?.addOnFailureListener{ Log.d("로그-1-actNum받아오기-","실패 . . . ") }
 
 
         btn_random_again.setOnClickListener {
@@ -66,7 +64,7 @@ class RandomActActivity : AppCompatActivity() {
                 firestore?.collection("Users")?.document("user_${uid}")
                     ?.update("today_again",true)
                     ?.addOnSuccessListener {
-                        Log.d("로그-2-2-success-update","today_again을 true로 성공")
+                        //Log.d("로그-2-2-success-update","today_again을 true로 성공")
                     }?.addOnFailureListener{ Log.d("로그-2-2-fail-update","실패 . . . .") }
             }else if(todayAgain!!){
                 Toast.makeText(this,"The activity can only be re-recommended once a day.",Toast.LENGTH_LONG).show()
@@ -87,10 +85,7 @@ class RandomActActivity : AppCompatActivity() {
             //[호출]지금 실행한 활동 act_check를 true로 바꾸기.
             actCheckTrue()
 
-/*//세원언니 수정 이후 이부분 코드 지우기!!!!!!
-            //[호출]활동을 하나 한거니까 현 user의 actNum +1하기
-            actNumPlusOne(false)*/
-
+            finish()
         }
 
         back.setOnClickListener{
@@ -148,9 +143,9 @@ class RandomActActivity : AppCompatActivity() {
 
         //활동을 넘겼으므로 현재 actNum변수+1
         if(again){
-            Log.d("로그-4-before-actNum+1","actNum ${actNum}")
+            //Log.d("로그-4-before-actNum+1","actNum ${actNum}")
             actNum = actNum?.plus(1)
-            Log.d("로그-4-after-actNum+1","actNum ${actNum}")
+            //Log.d("로그-4-after-actNum+1","actNum ${actNum}")
         }
     }
 
@@ -158,7 +153,7 @@ class RandomActActivity : AppCompatActivity() {
         firestore?.collection("act_checks")?.document("act_check_${uid}")?.collection("act")?.document("act${actNum}")
             ?.update("act_check",true)
             ?.addOnSuccessListener {
-                Log.d("로그-5-actCheckTrue","성공")
+                //Log.d("로그-5-actCheckTrue","성공")
             }?.addOnFailureListener { Log.d("로그-5-actCheckTrue","실 패 . . . .") }
     }
 

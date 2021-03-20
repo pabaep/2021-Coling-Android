@@ -19,6 +19,7 @@ class MyActActivity : AppCompatActivity() {
             intent.putExtra("act_name", my_act_name.text.toString())
             intent.putExtra("act_content", my_act_contents.text.toString())
             startActivity(intent)
+            finish()
         }
 
         back.setOnClickListener{

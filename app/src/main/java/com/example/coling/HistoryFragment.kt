@@ -84,23 +84,6 @@ class HistoryFragment : Fragment() {
             }
         //여기까지 세원언니 코드
 
-
-
-/*        //기록여부 확인, 새싹 이미지 소스 지정
-        firestore?.collection("Users")?.document("user_${uid}")
-            ?.get()
-            ?.addOnSuccessListener { document->
-                var startDate :Long = document.data?.get("start_date") as Long
-                day = ((getIgnoredTimeDays(nowDate)-getIgnoredTimeDays(startDate))/(246060*1000)).toInt() + 1
-                //Log.d("로그-success-days구하기","지금은 ${day} DAY")
-
-
-
-
-            }?.addOnFailureListener{
-                Log.d("로그-fail--","user컬렉션 데이터 가져오기 실패")
-            }*/
-
     }
 
     override fun onCreateView(
@@ -177,17 +160,6 @@ class HistoryFragment : Fragment() {
         //textview_date!!.text = sdf.format(cal.getTime())
     }
 
-/*    //timestamp에서 시, 분, 초, 밀리초 제외시키는 함수
-    fun getIgnoredTimeDays(time : Long): Long {
-        return Calendar.getInstance().apply {
-            timeInMillis = time
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }.timeInMillis
-    }*/
-
     //현재 주차week와 그 주차의 day들에 해당하는 day_check값들을 받아오는 함수
     fun getWeekAndDayChecks(day :Int?){
         //Log.d("로그-success에서함수호출-days확인","지금은 ${day} DAY")
@@ -231,18 +203,16 @@ class HistoryFragment : Fragment() {
         for(i in 0..6){
             //지난 날짜인데 day_check값이 null인 경우
             if(sevenDayChecks[i] == null && i < dayIndex){
-                Log.d("로그-setPastDays-yes-","${i}. ${i} < dayIndex ${dayIndex} sevenDayChecks[${i}] ${sevenDayChecks[i]} ")
+                //Log.d("로그-setPastDays-yes-","${i}. ${i} < dayIndex ${dayIndex} sevenDayChecks[${i}] ${sevenDayChecks[i]} ")
                 sevenDayChecks[i] = false
                 firestore?.collection("day_checks")?.document("day_check_${uid}")?.collection("day")?.document("day${day!!-(dayIndex-i)}")
                     ?.update("day_check",false)
                     ?.addOnSuccessListener { Log.d("로그-success-setPastDays-","성공") }
                     ?.addOnFailureListener { Log.d("로그-fail-setPastDays-","실패 . . .") }
             }
-            else{
-                Log.d("로그-setPastDays-no-","${i}. ${i} < dayIndex ${dayIndex} sevenDayChecks[${i}] ${sevenDayChecks[i]}")
-            }
+            else{ Log.d("로그-setPastDays-no-","${i}. ${i} < dayIndex ${dayIndex} sevenDayChecks[${i}] ${sevenDayChecks[i]}") }
         }
-        Log.d("로그-setPastDays-변경 확인", sevenDayChecks.toString())
+        //Log.d("로그-setPastDays-변경 확인", sevenDayChecks.toString())
 
         //[호출]dayCheck값에 따라 7개의 이미지 소스 넣고 setOnClickListener다는 함수
         setRecordCheckImages(sevenDayChecks)

@@ -13,6 +13,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_history.*
+import kotlinx.android.synthetic.main.fragment_main_screen.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -35,9 +36,9 @@ class HistoryFragment : Fragment() {
     var firestore :FirebaseFirestore? = null
     var auth :FirebaseAuth? = null
     var uid :String? = null
-    var nowDate :Long = System.currentTimeMillis()
     var day :Int? = null
     var sevenDayChecks :ArrayList<Boolean?> = arrayListOf()
+    var week :Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +50,43 @@ class HistoryFragment : Fragment() {
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
         uid = auth?.currentUser?.uid
-        //기록여부 확인, 새싹 이미지 소스 지정
+
+
+        //start_date를 가져와서 오늘의 day수 계산하기 - 세원언니 MainScreen에서 getDay() 코드가져와 수정
+        var startDate :Long? = null
+        firestore?.collection("Users")
+            ?.whereEqualTo("uid", auth?.currentUser?.uid)
+            ?.get()
+            ?.addOnSuccessListener { documents ->
+                for (document in documents) {
+                    startDate = document.data["start_date"] as Long
+                    break
+                }
+                Log.d("로그-start_date받기--","성공 startDate"+startDate.toString())
+
+                if(startDate == null){
+                    //처음 접속한 유저임. 데이터가 없음. 이후 user데이터 업로드 -> 회원 가입시에 Users 생성으로 바뀔 예정!!!!
+                    day = 1
+                }
+                else {
+                    //Users데이터가 있는 유저임. 현재시간nowDate와 startDate로 day수 계산.
+                    val nowDate = System.currentTimeMillis()
+                    var dayLong :Long = (nowDate - startDate!!)/(24*60*60*1000) + 1
+                    day = dayLong.toInt()
+                    Log.d("로그-day수-","day ${day}")
+                }
+
+                //[호출]현재 주차week와 그 주차에 해당하는 day_check값을 받아오는 함수
+                getWeekAndDayChecks(day)
+            }
+            ?.addOnFailureListener{
+                Log.d("로그-start_date--","실패 . . . . ")
+            }
+        //여기까지 세원언니 코드
+
+
+
+/*        //기록여부 확인, 새싹 이미지 소스 지정
         firestore?.collection("Users")?.document("user_${uid}")
             ?.get()
             ?.addOnSuccessListener { document->
@@ -57,12 +94,12 @@ class HistoryFragment : Fragment() {
                 day = ((getIgnoredTimeDays(nowDate)-getIgnoredTimeDays(startDate))/(246060*1000)).toInt() + 1
                 //Log.d("로그-success-days구하기","지금은 ${day} DAY")
 
-                //[호출]현재 주차week와 그 주차에 해당하는 day_check값을 받아오는 함수
-                getWeekAndDayChecks(day)
+
+
 
             }?.addOnFailureListener{
                 Log.d("로그-fail--","user컬렉션 데이터 가져오기 실패")
-            }
+            }*/
 
     }
 
@@ -105,9 +142,11 @@ class HistoryFragment : Fragment() {
         }
 
     //새싹 이미지를 클릭하면 detail history로 롸면이동시키는 함수
-    fun readDetail(){
-        //if(true)
+    fun readDetail(recordDay :Int){
         val intent = Intent(activity, DetailHistoryActivity :: class.java )
+        //현재 day수를 해당 기록의 day인 recordDay와 함께 보내서 비교. 당일이 아닐 경우 수정불가.
+        intent.putExtra("day",day)
+        intent.putExtra("recordDay",recordDay)
         startActivity(intent)
     }
 
@@ -138,7 +177,7 @@ class HistoryFragment : Fragment() {
         //textview_date!!.text = sdf.format(cal.getTime())
     }
 
-    //timestamp에서 시, 분, 초, 밀리초 제외시키는 함수
+/*    //timestamp에서 시, 분, 초, 밀리초 제외시키는 함수
     fun getIgnoredTimeDays(time : Long): Long {
         return Calendar.getInstance().apply {
             timeInMillis = time
@@ -147,16 +186,16 @@ class HistoryFragment : Fragment() {
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
         }.timeInMillis
-    }
+    }*/
 
     //현재 주차week와 그 주차의 day들에 해당하는 day_check값들을 받아오는 함수
-    fun getWeekAndDayChecks(days :Int?){
-        //Log.d("로그-success에서함수호출-days확인","지금은 ${days} DAY")
+    fun getWeekAndDayChecks(day :Int?){
+        //Log.d("로그-success에서함수호출-days확인","지금은 ${day} DAY")
 
         //1. get week : 몇주차인지를 의미하는 week값을 이용해 현재 주차의 최소 day수와 최대 day수 계산하기
-        var week = (days?.minus(1))?.div(7)
-        var minDay :Any = week?.times(7)?.plus(1)!!
-        var maxDay :Any = week?.times(7)?.plus(7)!!
+        week = (day?.minus(1))?.div(7)
+        var minDay :Int = week?.times(7)?.plus(1)!!
+        var maxDay :Int = week?.times(7)?.plus(7)!!
         history_day.text="Day ${minDay} - ${maxDay}"
         //Log.d("로그-day최대 최소값 확인--", "minDay ${minDay} maxDay ${maxDay}")
 
@@ -173,16 +212,43 @@ class HistoryFragment : Fragment() {
                         sevenDayChecks.add(null)
                     }
                 }
-                //Log.d("로그-success-day기간 내 문서7개", sevenDayChecks.toString())
-                //Log.d("로그-success-받아온 데이터 길이확인", sevenDayChecks.size.toString())
 
-                //[호출]dayCheck값에 따라 7개의 이미지 소스 넣고 setOnClickListener다는 함수
-                setRecordCheckImages(sevenDayChecks)
+                Log.d("로그-success-day기간 내 문서7개", sevenDayChecks.toString())
+                Log.d("로그-success-받아온 데이터 길이확인", sevenDayChecks.size.toString())
+
+                //[호출]지난 날짜의 day_checks값 관리 함수
+                setPastDays(sevenDayChecks)
+
             }
             ?.addOnFailureListener {
                 Log.d("로그-day기간 내 문서7개 받아오기--","실패 . . . ")
             }
     }
+
+    //지난 날짜의 day_checks값 관리 함수. 오늘 날짜의 day수를 이용해서 지난 날짜인데 day_check값이 null이면 기록을 안한 것이므로 false로 바꿈.DB의 데이터까지.
+    fun setPastDays(sevenDayChecks: ArrayList<Boolean?>){
+        var dayIndex :Int = (day!!%7)-1 //오늘 day수에 해당하는 sevenDayChecks의 arrayList index값
+        for(i in 0..6){
+            //지난 날짜인데 day_check값이 null인 경우
+            if(sevenDayChecks[i] == null && i < dayIndex){
+                Log.d("로그-setPastDays-yes-","${i}. ${i} < dayIndex ${dayIndex} sevenDayChecks[${i}] ${sevenDayChecks[i]} ")
+                sevenDayChecks[i] = false
+                firestore?.collection("day_checks")?.document("day_check_${uid}")?.collection("day")?.document("day${day!!-(dayIndex-i)}")
+                    ?.update("day_check",false)
+                    ?.addOnSuccessListener { Log.d("로그-success-setPastDays-","성공") }
+                    ?.addOnFailureListener { Log.d("로그-fail-setPastDays-","실패 . . .") }
+            }
+            else{
+                Log.d("로그-setPastDays-no-","${i}. ${i} < dayIndex ${dayIndex} sevenDayChecks[${i}] ${sevenDayChecks[i]}")
+            }
+        }
+        Log.d("로그-setPastDays-변경 확인", sevenDayChecks.toString())
+
+        //[호출]dayCheck값에 따라 7개의 이미지 소스 넣고 setOnClickListener다는 함수
+        setRecordCheckImages(sevenDayChecks)
+    }
+
+
 
     //day_check값에 따라 이미지를 바꾸고, setOnClickListener를 달아서 기록한 날은 자세한 기록페이지로 이동, 기록하지 않은 날은 토스트메세지 뜨게 함.
     fun setRecordCheckImages(sevenDayChecks :ArrayList<Boolean?>){
@@ -192,7 +258,7 @@ class HistoryFragment : Fragment() {
                 check_1.setImageResource(R.drawable.tabbar_icon_overcome)
                 //새싹 이미지 클릭 시 자세한 기록 보여주는 함수 readDetail()호출
                 check_1.setOnClickListener{
-                    readDetail()
+                    readDetail(week?.times(7)?.plus(1)!!)
                 }
             }else if(sevenDayChecks[0] == false){
                 check_1.setImageResource(R.drawable.check_no_record)
@@ -206,7 +272,7 @@ class HistoryFragment : Fragment() {
             if(sevenDayChecks[1] == true){
                 check_2.setImageResource(R.drawable.tabbar_icon_overcome)
                 check_2.setOnClickListener{
-                    readDetail()
+                    readDetail(week?.times(7)?.plus(2)!!)
                 }
             }else if(sevenDayChecks[1] == false){
                 check_2.setImageResource(R.drawable.check_no_record)
@@ -219,7 +285,7 @@ class HistoryFragment : Fragment() {
             if(sevenDayChecks[2] == true){
                 check_3.setImageResource(R.drawable.tabbar_icon_overcome)
                 check_3.setOnClickListener{
-                    readDetail()
+                    readDetail(week?.times(7)?.plus(3)!!)
                 }
             }else if(sevenDayChecks[2] == false){
                 check_3.setImageResource(R.drawable.check_no_record)
@@ -232,7 +298,7 @@ class HistoryFragment : Fragment() {
             if(sevenDayChecks[3] == true){
                 check_4.setImageResource(R.drawable.tabbar_icon_overcome)
                 check_4.setOnClickListener{
-                    readDetail()
+                    readDetail(week?.times(7)?.plus(4)!!)
                 }
             }else if(sevenDayChecks[3] == false){
                 check_4.setImageResource(R.drawable.check_no_record)
@@ -245,7 +311,7 @@ class HistoryFragment : Fragment() {
             if(sevenDayChecks[4] == true){
                 check_5.setImageResource(R.drawable.tabbar_icon_overcome)
                 check_5.setOnClickListener{
-                    readDetail()
+                    readDetail(week?.times(7)?.plus(5)!!)
                 }
             }else if(sevenDayChecks[4] == false){
                 check_5.setImageResource(R.drawable.check_no_record)
@@ -258,12 +324,14 @@ class HistoryFragment : Fragment() {
             if(sevenDayChecks[5] == true){
                 check_6.setImageResource(R.drawable.tabbar_icon_overcome)
                 check_6.setOnClickListener{
-                    readDetail()
+                    readDetail(week?.times(7)?.plus(6)!!)
+                    //Log.d("로그-seven5-check6-","true listenter담")
                 }
             }else if(sevenDayChecks[5] == false){
                 check_6.setImageResource(R.drawable.check_no_record)
                 check_6.setOnClickListener{
                     noRecordToast.show()
+                    //Log.d("로그-seven5-check6-","false listenter담")
                 }
             }
         }
@@ -271,7 +339,7 @@ class HistoryFragment : Fragment() {
             if(sevenDayChecks[6] == true){
                 check_7.setImageResource(R.drawable.tabbar_icon_overcome)
                 check_7.setOnClickListener{
-                    readDetail()
+                    readDetail(week?.times(7)?.plus(7)!!)
                 }
             }else if(sevenDayChecks[6] == false){
                 check_7.setImageResource(R.drawable.check_no_record)

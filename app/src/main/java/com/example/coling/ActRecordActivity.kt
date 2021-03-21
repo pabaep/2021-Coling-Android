@@ -148,17 +148,24 @@ class ActRecordActivity : AppCompatActivity() {
                     //Log.d("로그-6-0--","act_num + ${act_num}")
                     ModelDayCheck.day_check = true
 
-                    /*firestore?.collection("day_checks")
-                        ?.document("day_check_${auth?.currentUser?.uid}")?.collection("day")
-                        ?.document("day${day}")?.set(ModelDayCheck)*/
-                    firestore?.collection("day_checks")
-                        ?.document("day_check_${auth?.currentUser?.uid}")
-                        ?.collection("day")?.document("day${day}")
-                        ?.update("day_check",true)
-                    firestore?.collection("Users")
-                        ?.document("user_${auth?.currentUser?.uid}")
-                        ?.update("act_num",act_num+1,"today_again",false)
+                    if(act_num == 0){
+                        firestore?.collection("day_checks")
+                            ?.document("day_check_${auth?.currentUser?.uid}")
+                            ?.collection("day")?.document("day${day}")
+                            ?.update("day_check", true)
+                    }
+                    else {
+                        firestore?.collection("day_checks")
+                            ?.document("day_check_${auth?.currentUser?.uid}")
+                            ?.collection("day")?.document("day${day}")
+                            ?.update("day_check", true)
+                        firestore?.collection("Users")
+                            ?.document("user_${auth?.currentUser?.uid}")
+                            ?.update("act_num", act_num + 1, "today_again", false)
+                    }
 
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                     finish()
                 }
 

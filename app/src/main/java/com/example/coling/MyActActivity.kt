@@ -18,8 +18,8 @@ class MyActActivity : AppCompatActivity() {
             val intent = Intent(this, ActRecordActivity::class.java)
             intent.putExtra("act_name", my_act_name.text.toString())
             intent.putExtra("act_content", my_act_contents.text.toString())
+            intent.putExtra("act_num", 0)
             startActivity(intent)
-            finish()
         }
 
         back.setOnClickListener{

@@ -84,8 +84,6 @@ class RandomActActivity : AppCompatActivity() {
 
             //[호출]지금 실행한 활동 act_check를 true로 바꾸기.
             actCheckTrue()
-
-            finish()
         }
 
         back.setOnClickListener{

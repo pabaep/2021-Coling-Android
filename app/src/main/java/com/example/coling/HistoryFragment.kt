@@ -38,6 +38,7 @@ class HistoryFragment : Fragment() {
     var uid :String? = null
     var day :Int? = null
     var sevenDayChecks :ArrayList<Boolean?> = arrayListOf()
+    var sevenDays :ArrayList<Int?> = arrayListOf()
     var week :Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -183,13 +184,20 @@ class HistoryFragment : Fragment() {
                     }else{
                         sevenDayChecks.add(null)
                     }
+
+                    //가져온 7일의 각 day수 7개를 저장.
+                    var sevenDay :Long = doc.data["day"] as Long
+                    sevenDays.add(sevenDay.toInt())
                 }
 
-                Log.d("로그-success-day기간 내 문서7개", sevenDayChecks.toString())
-                Log.d("로그-success-받아온 데이터 길이확인", sevenDayChecks.size.toString())
+                //Log.d("로그-success-Check 7개받아옴", sevenDayChecks.toString())
+                //Log.d("로그-success-받아온 Check 길이", sevenDayChecks.size.toString())
+
+                //Log.d("로그-success-day 7개받아옴", sevenDays.toString())
+                //Log.d("로그-success-받아온 day 길이", sevenDays.size.toString())
 
                 //[호출]지난 날짜의 day_checks값 관리 함수
-                setPastDays(sevenDayChecks)
+                setPastDays(sevenDays,sevenDayChecks)
 
             }
             ?.addOnFailureListener {
@@ -198,19 +206,29 @@ class HistoryFragment : Fragment() {
     }
 
     //지난 날짜의 day_checks값 관리 함수. 오늘 날짜의 day수를 이용해서 지난 날짜인데 day_check값이 null이면 기록을 안한 것이므로 false로 바꿈.DB의 데이터까지.
-    fun setPastDays(sevenDayChecks: ArrayList<Boolean?>){
-        var dayIndex :Int = (day!!%7)-1 //오늘 day수에 해당하는 sevenDayChecks의 arrayList index값
+    fun setPastDays(sevenDays :ArrayList<Int?>, sevenDayChecks: ArrayList<Boolean?>){
+        //Log.d("로그-setPastDays-0-","day ${day}")
+
+/*        //dayIndex : 오늘 day수에 해당하는 sevenDayChecks의 arrayList index값
+        var dayIndex : Int =
+            if (day!!%7 == 0){
+                6
+                }else{
+                    (day!!%7)-1
+                }*/
+
         for(i in 0..6){
             //지난 날짜인데 day_check값이 null인 경우
-            if(sevenDayChecks[i] == null && i < dayIndex){
+            if(sevenDayChecks[i] == null && sevenDays[i]!! < day!!){
                 //Log.d("로그-setPastDays-yes-","${i}. ${i} < dayIndex ${dayIndex} sevenDayChecks[${i}] ${sevenDayChecks[i]} ")
                 sevenDayChecks[i] = false
-                firestore?.collection("day_checks")?.document("day_check_${uid}")?.collection("day")?.document("day${day!!-(dayIndex-i)}")
+                firestore?.collection("day_checks")?.document("day_check_${uid}")?.collection("day")?.document("day${sevenDays[i]}")
                     ?.update("day_check",false)
                     ?.addOnSuccessListener { Log.d("로그-success-setPastDays-","성공") }
                     ?.addOnFailureListener { Log.d("로그-fail-setPastDays-","실패 . . .") }
             }
-            else{ Log.d("로그-setPastDays-no-","${i}. ${i} < dayIndex ${dayIndex} sevenDayChecks[${i}] ${sevenDayChecks[i]}") }
+            else{ //Log.d("로그-setPastDays-no-","${i}. ${i} < dayIndex ${dayIndex} sevenDayChecks[${i}] ${sevenDayChecks[i]}")
+            }
         }
         //Log.d("로그-setPastDays-변경 확인", sevenDayChecks.toString())
 

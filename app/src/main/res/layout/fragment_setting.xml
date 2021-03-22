@@ -55,7 +55,7 @@
         android:layout_marginTop="15dp"
         android:background="@color/lightgreen"
         android:fontFamily="@font/bmhnnnaair"
-        android:text="Open Source Licence"
+        android:text="Manual"
         android:textColor="@color/darkgreen"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"

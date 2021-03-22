@@ -39,7 +39,10 @@ class HistoryFragment : Fragment() {
     var day :Int? = null
     var sevenDayChecks :ArrayList<Boolean?> = arrayListOf()
     var sevenDays :ArrayList<Int?> = arrayListOf()
+    var sevenDayChecks_datepicker :ArrayList<Boolean?> = arrayListOf()
     var week :Int? = null
+    var calday : Int? = null
+    var startDate :Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +57,6 @@ class HistoryFragment : Fragment() {
 
 
         //start_date를 가져와서 오늘의 day수 계산하기 - 세원언니 MainScreen에서 getDay() 코드가져와 수정
-        var startDate :Long? = null
         firestore?.collection("Users")
             ?.whereEqualTo("uid", auth?.currentUser?.uid)
             ?.get()
@@ -108,7 +110,6 @@ class HistoryFragment : Fragment() {
             }
         }
 
-
         // when you click on the button, show DatePickerDialog that is set with OnDateSetListener
         btn_other_record!!.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
@@ -119,7 +120,12 @@ class HistoryFragment : Fragment() {
                     cal.get(Calendar.YEAR),
                     cal.get(Calendar.MONTH),
                     cal.get(Calendar.DAY_OF_MONTH)
-                ).show()
+                ).apply {
+                    //startDate 이전 날짜는 클릭하지 못하도록
+                    if((startDate!=null)){
+                        datePicker.minDate= startDate as Long
+                    }
+                }.show()
             }
         })
 
@@ -156,9 +162,20 @@ class HistoryFragment : Fragment() {
     }
 
     private fun updateDateInView() {
-        val myFormat = "MM/dd/yyyy" // mention the format you need
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        //textview_date!!.text = sdf.format(cal.getTime())
+        //datepicker에서 고른 날짜를 long으로 변환
+        val calDayLong = cal.getTimeInMillis()
+        Log.d("cal.getTime()은",calDayLong.toString())
+
+        //datepicker에서 고른 날짜가 day몇인지 calday에 저장
+        var myDay: Long = (calDayLong - startDate!!) / (24 * 60 * 60 * 1000) + 1
+        calday = myDay.toInt()
+        Log.d("calday 계산 ", calday.toString())
+
+
+        //datepicker에서 선택한 날짜로 부터 7일간의 day와 그 주차에 해당하는 day_check값을 받아오는 함수
+        getDayAndDayChecks(calday)
+
+
     }
 
     //현재 주차week와 그 주차의 day들에 해당하는 day_check값들을 받아오는 함수
@@ -334,6 +351,154 @@ class HistoryFragment : Fragment() {
                 check_7.setOnClickListener{
                     noRecordToast.show()
                 }
+            }
+        }
+
+    }
+
+    //datepicker에서 선택한 날짜로 부터 7일간의 day와 그 주차에 해당하는 day_check값을 받아오는 함수
+    fun getDayAndDayChecks(day :Int?){
+        //sevenDayChecks_datepicker 변수 초기화
+        sevenDayChecks_datepicker.clear()
+
+        //위에 day 변경
+        var lastday = calday!!.toInt()+6
+        history_day.text="Day ${calday} - ${lastday}"
+
+        //day범위에 해당하는 day_check값들 받아오기
+        firestore?.collection("day_checks")?.document("day_check_${uid}")?.collection("day")
+            ?.whereGreaterThanOrEqualTo("day", calday!!)
+            ?.whereLessThanOrEqualTo("day", lastday)
+            ?.get()
+            ?.addOnSuccessListener {documents ->
+                for(doc in documents){
+                    if(doc.data["day_check"] != null){
+                        sevenDayChecks_datepicker.add(doc.data["day_check"] as Boolean)
+                        Log.d("cal day_check", doc.data["day_check"].toString())
+                    }else{
+                        sevenDayChecks_datepicker.add(null)
+                    }
+                }
+                setRecordCheckImages_datepicker(sevenDayChecks_datepicker)
+            }
+            ?.addOnFailureListener {
+                Log.d("로그-day기간 내 문서7개 받아오기--","실패 . . . ")
+            }
+    }
+
+    //datepicker 선택 후 day_check값에 따라 이미지를 바꾸고, setOnClickListener를 달아서 기록한 날은 자세한 기록페이지로 이동, 기록하지 않은 날은 토스트메세지 뜨게 함.
+    fun setRecordCheckImages_datepicker(sevenDayChecks_datepicker :ArrayList<Boolean?>){
+        var noRecordToast = Toast.makeText(activity, "There is no record for this date.", Toast.LENGTH_SHORT)
+
+        if(sevenDayChecks_datepicker[0] == null) {
+            check_1.setImageResource(R.drawable.check_empty_record)
+        }else if(sevenDayChecks_datepicker[0] == true) {
+            check_1.setImageResource(R.drawable.tabbar_icon_overcome)
+            //새싹 이미지 클릭 시 자세한 기록 보여주는 함수 readDetail()호출
+            check_1.setOnClickListener {
+                readDetail(calday!!)
+            }
+        }else if(sevenDayChecks_datepicker[0] == false){
+                check_1.setImageResource(R.drawable.check_no_record)
+                //기록하지 않은 날짜 새싹 클릭 시 토스트 메세지 띄움
+                check_1.setOnClickListener{
+                    noRecordToast.show()
+                }
+            }
+
+        if(sevenDayChecks_datepicker[1] == null) {
+            check_2.setImageResource(R.drawable.check_empty_record)
+        }else if(sevenDayChecks_datepicker[1] == true) {
+            check_2.setImageResource(R.drawable.tabbar_icon_overcome)
+            //새싹 이미지 클릭 시 자세한 기록 보여주는 함수 readDetail()호출
+            check_2.setOnClickListener {
+                readDetail(calday!!)
+            }
+        }else if(sevenDayChecks_datepicker[1] == false){
+            check_2.setImageResource(R.drawable.check_no_record)
+            //기록하지 않은 날짜 새싹 클릭 시 토스트 메세지 띄움
+            check_2.setOnClickListener{
+                noRecordToast.show()
+            }
+        }
+
+        if(sevenDayChecks_datepicker[2] == null) {
+            check_3.setImageResource(R.drawable.check_empty_record)
+        }else if(sevenDayChecks_datepicker[2] == true) {
+            check_3.setImageResource(R.drawable.tabbar_icon_overcome)
+            //새싹 이미지 클릭 시 자세한 기록 보여주는 함수 readDetail()호출
+            check_3.setOnClickListener {
+                readDetail(calday!!)
+            }
+        }else if(sevenDayChecks_datepicker[2] == false){
+            check_3.setImageResource(R.drawable.check_no_record)
+            //기록하지 않은 날짜 새싹 클릭 시 토스트 메세지 띄움
+            check_3.setOnClickListener{
+                noRecordToast.show()
+            }
+        }
+
+        if(sevenDayChecks_datepicker[3] == null) {
+            check_4.setImageResource(R.drawable.check_empty_record)
+        }else if(sevenDayChecks_datepicker[3] == true) {
+            check_4.setImageResource(R.drawable.tabbar_icon_overcome)
+            //새싹 이미지 클릭 시 자세한 기록 보여주는 함수 readDetail()호출
+            check_4.setOnClickListener {
+                readDetail(calday!!)
+            }
+        }else if(sevenDayChecks_datepicker[3] == false){
+            check_4.setImageResource(R.drawable.check_no_record)
+            //기록하지 않은 날짜 새싹 클릭 시 토스트 메세지 띄움
+            check_4.setOnClickListener{
+                noRecordToast.show()
+            }
+        }
+
+        if(sevenDayChecks_datepicker[4] == null) {
+            check_5.setImageResource(R.drawable.check_empty_record)
+        }else if(sevenDayChecks_datepicker[4] == true) {
+            check_5.setImageResource(R.drawable.tabbar_icon_overcome)
+            //새싹 이미지 클릭 시 자세한 기록 보여주는 함수 readDetail()호출
+            check_5.setOnClickListener {
+                readDetail(calday!!)
+            }
+        }else if(sevenDayChecks_datepicker[4] == false){
+            check_5.setImageResource(R.drawable.check_no_record)
+            //기록하지 않은 날짜 새싹 클릭 시 토스트 메세지 띄움
+            check_5.setOnClickListener{
+                noRecordToast.show()
+            }
+        }
+
+        if(sevenDayChecks_datepicker[5] == null) {
+            check_6.setImageResource(R.drawable.check_empty_record)
+        }else if(sevenDayChecks_datepicker[5] == true) {
+            check_6.setImageResource(R.drawable.tabbar_icon_overcome)
+            //새싹 이미지 클릭 시 자세한 기록 보여주는 함수 readDetail()호출
+            check_6.setOnClickListener {
+                readDetail(calday!!)
+            }
+        }else if(sevenDayChecks_datepicker[5] == false){
+            check_6.setImageResource(R.drawable.check_no_record)
+            //기록하지 않은 날짜 새싹 클릭 시 토스트 메세지 띄움
+            check_6.setOnClickListener{
+                noRecordToast.show()
+            }
+        }
+
+        if(sevenDayChecks_datepicker[6] == null) {
+            check_7.setImageResource(R.drawable.check_empty_record)
+        }else if(sevenDayChecks_datepicker[6] == true) {
+            check_7.setImageResource(R.drawable.tabbar_icon_overcome)
+            //새싹 이미지 클릭 시 자세한 기록 보여주는 함수 readDetail()호출
+            check_7.setOnClickListener {
+                readDetail(calday!!)
+            }
+        }else if(sevenDayChecks_datepicker[6] == false){
+            check_7.setImageResource(R.drawable.check_no_record)
+            //기록하지 않은 날짜 새싹 클릭 시 토스트 메세지 띄움
+            check_7.setOnClickListener{
+                noRecordToast.show()
             }
         }
 

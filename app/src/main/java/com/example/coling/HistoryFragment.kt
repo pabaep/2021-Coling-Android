@@ -68,7 +68,7 @@ class HistoryFragment : Fragment() {
                 Log.d("로그-start_date받기--","성공 startDate"+startDate.toString())
 
                 if(startDate == null){
-                    //처음 접속한 유저임. 데이터가 없음. 이후 user데이터 업로드 -> 회원 가입시에 Users 생성으로 바뀔 예정!!!!
+                    //처음 접속한 유저임. statDate 데이터가 없음.
                     day = 1
                 }
                 else {

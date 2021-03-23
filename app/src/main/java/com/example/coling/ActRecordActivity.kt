@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -47,6 +48,9 @@ class ActRecordActivity : AppCompatActivity() {
         val str = df.format(System.currentTimeMillis()) //일단은 수정 고려 안하고 현재 시간 집어 넣음
         textView2.text = str
         settingPermission() //권한 설정
+
+        //한줄일기 EditText의 키보드가 UI를 가리는 것 방지
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         back_btn.setOnClickListener {
             finish()

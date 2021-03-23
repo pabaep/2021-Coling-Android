@@ -9,6 +9,7 @@ import android.text.Editable
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -112,6 +113,9 @@ class DetailHistoryActivity : AppCompatActivity() {
                 toast.show()
                 Log.d("로그-toast-","토스트 ${toast}")
             }
+            
+            //키보드가 UI를 가리는 것 방지
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         }
 

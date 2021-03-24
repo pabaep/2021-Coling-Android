@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_main_screen.*
+import java.util.*
 
 
 class MainScreenFragment : Fragment() {
@@ -44,7 +46,8 @@ class MainScreenFragment : Fragment() {
 
 
         today_act_start_btn.setOnClickListener{
-            goToStart()
+            //goToStart()
+            isVaild()
         }
 
     }
@@ -75,6 +78,15 @@ class MainScreenFragment : Fragment() {
                 Log.d("로그-4-1--",startDate.toString()+"나오나요...")
                 if(startDate == null){
                     //user데이터 업로드
+                    /*
+                    val nowDate = Calendar.getInstance().apply {
+                        set(Calendar.YEAR, 2021)
+                        set(Calendar.MONTH, 2)  // 얘가 0이 1월 달임
+                        set(Calendar.DATE, 31)
+                    }.timeInMillis
+                    startDate = System.currentTimeMillis()
+                    day = (getIgnoredTimeDays(nowDate) - getIgnoredTimeDays(startDate!!))/(24*60*60*1000) + 1
+                    */
                     day = 1
                     text_day_real.text = day.toString() // 화면에 day 수 띄우줌
                     getQuote(day)
@@ -82,21 +94,10 @@ class MainScreenFragment : Fragment() {
 
                 else {
                     val nowDate = System.currentTimeMillis()
-                    day = (nowDate - startDate!!)/(24*60*60*1000) + 1
+                    day = (getIgnoredTimeDays(nowDate) - getIgnoredTimeDays(startDate!!))/(24*60*60*1000) + 1
                     text_day_real.text = day.toString() // 화면에 day 수 띄우줌
                     getQuote(day)
-                    /*firestore?.collection("Quote")
-                        ?.whereEqualTo("qid",day.toInt())
-                        ?.get()
-                        ?.addOnSuccessListener { documents ->
-                            for (document in documents){
-                                title = document.data["title"] as String
-                                writer = document.data["writer"] as String
-                                break
-                            }
-                            today_quote_content.text = title
-                            today_quote_writer.text = writer
-                        }*/
+
                 }
 
 
@@ -118,6 +119,76 @@ class MainScreenFragment : Fragment() {
                 today_quote_content.text = title
                 today_quote_writer.text = writer
             }
+    }
+    //시간, 분, 초, 밀리초 제외시키기
+    fun getIgnoredTimeDays(time : Long): Long{
+        return Calendar.getInstance().apply {
+            timeInMillis = time
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.timeInMillis
+    }
+    //현재 day에 해당하는 daycheck가 true 이면 다음 화면으로 못넘어 가게하기
+    fun isVaild(){
+        firestore?.collection("Users")
+            ?.whereEqualTo("uid", auth?.currentUser?.uid)
+            ?.get()
+            ?.addOnSuccessListener { documents ->
+                for (document in documents) {
+                    startDate = document.data["start_date"] as Long?
+                    break
+                }
+                Log.d("로그-4-1--",startDate.toString()+"나오나요...")
+                if(startDate == null){
+                    //user데이터 업로드
+                    day = 1
+                    firestore?.collection("day_checks")
+                        ?.document("day_check_${auth?.currentUser?.uid}")
+                        ?.collection("day")
+                        ?.whereEqualTo("day",day)
+                        ?.get()
+                        ?.addOnSuccessListener { documents ->
+                            for(document in documents){
+                                if (document.data["day_check"] == true){
+                                    Toast.makeText(activity, "You can do only one activity a day.",Toast.LENGTH_SHORT).show()
+                                }
+                                else{
+                                    goToStart()
+                                }
+                            }
+
+                        }
+                }
+
+                else {
+                    val nowDate = System.currentTimeMillis()
+                    day = (getIgnoredTimeDays(nowDate) - getIgnoredTimeDays(startDate!!))/(24*60*60*1000) + 1
+                    firestore?.collection("day_checks")
+                        ?.document("day_check_${auth?.currentUser?.uid}")
+                        ?.collection("day")
+                        ?.whereEqualTo("day",day)
+                        ?.get()
+                        ?.addOnSuccessListener { documents ->
+                            for(document in documents){
+                                if (document.data["day_check"] == true){
+                                    Toast.makeText(activity, "You can do only one activity a day.",Toast.LENGTH_SHORT).show()
+                                }
+                                else{
+                                    goToStart()
+                                }
+                            }
+
+                        }
+
+                }
+
+            }
+            ?.addOnFailureListener{
+                Log.d("로그-3-3--","실패 . . . . ")
+            }
+
     }
 
 }

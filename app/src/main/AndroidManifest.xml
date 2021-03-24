@@ -39,6 +39,7 @@
         <activity android:name=".SettingTermsActivity"/>
         <activity android:name=".SettingPrivacyActivity"/>
         <activity android:name=".OvercomeMusicActivity"/>
+        <activity android:name=".SettingManualActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

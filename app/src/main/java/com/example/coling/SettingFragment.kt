@@ -29,6 +29,12 @@ class SettingFragment : Fragment() {
             startActivity(intent)
         }
 
+        // 메뉴얼 버튼
+        btn_manual.setOnClickListener{
+            val intent = Intent(activity, SettingManualActivity::class.java)
+            startActivity(intent)
+        }
+
         // 사용자 약관 버튼
         btn_terms.setOnClickListener {
             val intent = Intent(activity, SettingTermsActivity::class.java)

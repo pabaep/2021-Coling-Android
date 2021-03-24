@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ivory">
+
+    <ImageView
+        android:id="@+id/btn_manual_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_icon" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/bmjua"
+        android:text="COling"
+        android:textColor="@color/gray"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/manual_cl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/bmhnnnaair"
+                android:text="Record"
+                android:textColor="@color/darkgreen"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/bmhnnnaair"
+                android:paddingEnd="20dp"
+                android:text="On the first screen, you can see the number of days and today's quote.\n
+When the 'Start!' button is pressed, there is a 'Random Activity' button that determines the activity with Random
+and a 'My Activity' button that allows me to set up my own activities."
+                app:layout_constraintStart_toStartOf="@+id/manual_cl"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/bmhnnnaair"
+                android:paddingEnd="20dp"
+                android:text="1) When the 'Random Activity' button is pressed\n
+The activity is random and you can see the activity name and detailed description of the activity. If you are not able to do the activity, you can press the 'Random Again' button to receive recommendations for other activities. However, you can only press the button once a day to receive recommendations for other activities, so be careful!\n
+Pressing the 'Do it!' button will take you to the screen recording the activity.\n
+2) When the 'My Activity' button is pressed\n
+Enter Activity Name and Contents to press the 'Doit!' button and go to the screen to record the activity."
+                app:layout_constraintStart_toStartOf="@+id/manual_cl"
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/bmhnnnaair"
+                android:paddingEnd="20dp"
+                android:text="When the 'Do it!' button is pressed, Activity after entering today's Emotion, short story of today, and pressing the 'Save' button, the activity of the day is recorded. Photos and Emotions must be entered as required."
+                app:layout_constraintStart_toStartOf="@+id/manual_cl"
+                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/bmhnnnaair"
+                android:text="History"
+                android:textColor="@color/darkgreen"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/bmhnnnaair"
+                android:paddingEnd="20dp"
+                android:text="You can check your history at intervals of one week from the date you start recording. You can check whether the sprout is recorded or not with the color of the sprout, and click on the sprout on the day the sprout is green (the day the sprout is recorded). You can also modify the short diary of today by clicking on the history you recorded today."
+                app:layout_constraintStart_toStartOf="@+id/manual_cl"
+                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/bmhnnnaair"
+                android:paddingEnd="20dp"
+                android:text="If you press the 'Other Record' button, you can check the history of past dates. Check the history for 7 days from the date you clicked on the calendar."
+                app:layout_constraintStart_toStartOf="@+id/manual_cl"
+                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/bmhnnnaair"
+                android:text="Overcome"
+                android:textColor="@color/darkgreen"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/bmhnnnaair"
+                android:paddingEnd="20dp"
+                android:text="There are other ways to overcome depression. You can find peace of mind while listening to songs with theme you choose, and connect to the psychological counseling hotline, and emotion self diagnostic test."
+                app:layout_constraintStart_toStartOf="@+id/manual_cl"
+                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/bmhnnnaair"
+                android:text="Setting"
+                android:textColor="@color/darkgreen"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/bmhnnnaair"
+                android:paddingEnd="20dp"
+                android:text="You can get information about manuals, service terms, privacy police, FAQs, and include logout buttons."
+                app:layout_constraintStart_toStartOf="@+id/manual_cl"
+                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

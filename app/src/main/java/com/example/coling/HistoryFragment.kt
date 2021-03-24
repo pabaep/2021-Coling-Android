@@ -74,7 +74,7 @@ class HistoryFragment : Fragment() {
                 else {
                     //Users데이터가 있는 유저임. 현재시간nowDate와 startDate로 day수 계산.
                     val nowDate = System.currentTimeMillis()
-                    var dayLong :Long = (nowDate - startDate!!)/(24*60*60*1000) + 1
+                    var dayLong :Long = (getIgnoredTimeDays(nowDate) - getIgnoredTimeDays(startDate!!))/(24*60*60*1000) + 1
                     day = dayLong.toInt()
                     Log.d("로그-day수-","day ${day}")
                 }
@@ -85,7 +85,7 @@ class HistoryFragment : Fragment() {
             ?.addOnFailureListener{
                 Log.d("로그-start_date--","실패 . . . . ")
             }
-        //여기까지 세원언니 코드
+        //여기까지, 그리고 저 아래 getIgnoredTimeDays함수까지 세원언니 코드
 
     }
 
@@ -176,6 +176,17 @@ class HistoryFragment : Fragment() {
         getDayAndDayChecks(calday)
 
 
+    }
+
+    //시간, 분, 초, 밀리초 제외시키는 함수
+    fun getIgnoredTimeDays(time : Long): Long{
+        return Calendar.getInstance().apply {
+            timeInMillis = time
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.timeInMillis
     }
 
     //현재 주차week와 그 주차의 day들에 해당하는 day_check값들을 받아오는 함수

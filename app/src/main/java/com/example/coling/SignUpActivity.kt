@@ -25,8 +25,9 @@ class SignUpActivity : AppCompatActivity() {
 
         val email = findViewById<EditText>(R.id.email_txt)
         val password = findViewById<EditText>(R.id.pw_txt)
+        val passwordCheck = findViewById<EditText>(R.id.pw_check_txt)
 
-        val vaildEmail = Regex("^[a-zA-Z0-9]([-_.]?[0-9a-zA-Z])@[a-zA-Z0-9]([-_.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}")
+        //val vaildEmail = Regex("^[a-zA-Z0-9]([-_.]?[0-9a-zA-Z])@[a-zA-Z0-9]([-_.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}")
         val email_pattern = android.util.Patterns.EMAIL_ADDRESS;
 
         signUp_btn.setOnClickListener {
@@ -38,6 +39,9 @@ class SignUpActivity : AppCompatActivity() {
             }
             else if(!email_pattern.matcher(email.text.toString()).matches()){
                 Toast.makeText(this, "Not a valid email format", Toast.LENGTH_SHORT).show()
+            }
+            else if(password.text.toString() != passwordCheck.text.toString()){
+                Toast.makeText(this, "Please check your password one more time.",Toast.LENGTH_SHORT).show()
             }
             else {
                 auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString())

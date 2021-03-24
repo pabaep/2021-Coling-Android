@@ -118,12 +118,12 @@ class ActRecordActivity : AppCompatActivity() {
                     /*val nowDate = Calendar.getInstance().apply {
                         set(Calendar.YEAR, 2021)
                         set(Calendar.MONTH, 2)  // 얘가 0이 1월 달임
-                        set(Calendar.DATE, 21)
+                        set(Calendar.DATE, 31)
                     }.timeInMillis*/
                     val nowDate = System.currentTimeMillis()
                     Log.d("로그-5-0--",nowDate.toString())
 
-                    day = (nowDate - startDate!!)/(24*60*60*1000) + 1
+                    day = (getIgnoredTimeDays(nowDate) - getIgnoredTimeDays(startDate!!))/(24*60*60*1000) + 1
 
                 }
                 //레코드 업로드 부분

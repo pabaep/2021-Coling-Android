@@ -167,10 +167,9 @@ class HistoryFragment : Fragment() {
         Log.d("cal.getTime()은",calDayLong.toString())
 
         //datepicker에서 고른 날짜가 day몇인지 calday에 저장
-        var myDay: Long = (calDayLong - startDate!!) / (24 * 60 * 60 * 1000) + 1
+        var myDay: Long = (getIgnoredTimeDays(calDayLong) - getIgnoredTimeDays(startDate!!)) / (24 * 60 * 60 * 1000) + 1
         calday = myDay.toInt()
         Log.d("calday 계산 ", calday.toString())
-
 
         //datepicker에서 선택한 날짜로 부터 7일간의 day와 그 주차에 해당하는 day_check값을 받아오는 함수
         getDayAndDayChecks(calday)

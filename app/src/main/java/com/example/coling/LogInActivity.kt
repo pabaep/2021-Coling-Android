@@ -23,12 +23,20 @@ class LogInActivity : AppCompatActivity() {
         val email = findViewById<EditText>(R.id.login_email_txt)
         val password = findViewById<EditText>(R.id.login_pw_txt)
 
+        //null이 아니면 전에 로그인을 시도하지 않음. 로그아웃을 클릭할 때까지 계속 자동로그인
+        if (auth.getCurrentUser() != null) { //현재 사용자를 가지고 와서 null값과 비교
+            val intent = Intent(this, MainActivity::class.java);
+            startActivity(intent);
+            finish();
+        }
+
         move_to_signup.setOnClickListener {
             //지금은 단순하게 페이지 넘어가는 것으로 구성, 후에 로그인 구현후 넘어가게 할 것임
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
             //signIn()
         }
+
         login_btn.setOnClickListener {
             if (email.text.toString().length == 0 || password.text.toString().length == 0){
                 Toast.makeText(this, "Please enter the email or password", Toast.LENGTH_SHORT).show()

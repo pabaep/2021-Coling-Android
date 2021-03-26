@@ -9,6 +9,7 @@ import com.example.coling.model.ModelActCheck
 import com.example.coling.model.ModelDayCheck
 import com.example.coling.model.ModelUser
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.actionCodeSettings
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
@@ -44,9 +45,24 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please check your password one more time.",Toast.LENGTH_SHORT).show()
             }
             else {
+                //이메일과 비밀번호 양식이 올바름. 유저를 서버에 등록.
                 auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString())
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
+                            //유저를 서버에 등록 성공했음. 이제 유저의 이메일로 인증 메일을 발송함.
+                            auth.currentUser?.sendEmailVerification()
+                                ?.addOnCompleteListener {task2 ->
+                                    if (task2.isSuccessful){
+                                        //이메일을 보냈으니 확인하라는 토스트메세지 띄움.
+                                        Toast.makeText(this, "Registered successfully. Please sheck your email for verification",Toast.LENGTH_LONG).show()
+                                        Log.d("로그-success-인증 메일 전송","성공")
+                                    }
+                                    else{
+                                        Log.d("로그-fail-인증 메일 전송","실패 . . . . "+task2.exception?.message)
+                                    }
+                                }
+
+
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success")
                             val user = auth.currentUser

@@ -54,8 +54,8 @@ class SignUpActivity : AppCompatActivity() {
                                 ?.addOnCompleteListener {task2 ->
                                     if (task2.isSuccessful){
                                         //이메일을 보냈으니 확인하라는 토스트메세지 띄움.
-                                        Toast.makeText(this, "Registered successfully. Please sheck your email for verification",Toast.LENGTH_LONG).show()
-                                        Log.d("로그-success-인증 메일 전송","성공")
+                                        Toast.makeText(this, "Registered successfully. Please check your email for verification.",Toast.LENGTH_LONG).show()
+                                        //Log.d("로그-success-인증 메일 전송","성공")
                                     }
                                     else{
                                         Log.d("로그-fail-인증 메일 전송","실패 . . . . "+task2.exception?.message)
@@ -68,7 +68,7 @@ class SignUpActivity : AppCompatActivity() {
                             val user = auth.currentUser
                             //updateUI(user)
                             // 아니면 액티비티를 닫아 버린다.
-                            finish()
+                            /*finish()*/
                             //overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit)
                             createDayAndActCheck()
                             ModelUser.uid = auth?.currentUser?.uid
@@ -82,10 +82,10 @@ class SignUpActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             ).show()
                             //updateUI(null)
-                            //입력필드 초기화
+/*                            //입력필드 초기화
                             email?.setText("")
                             password?.setText("")
-                            email.requestFocus()
+                            email.requestFocus()*/
                         }
                     }
             }

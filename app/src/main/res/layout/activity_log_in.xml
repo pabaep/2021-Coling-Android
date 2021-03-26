@@ -67,15 +67,15 @@
                 android:layout_marginTop="390dp"
                 android:text="Sign In" />
 
-            <Button
-                android:id="@+id/google_login_btn"
-                style="@style/MyButtonview"
-                android:layout_width="350dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="500dp"
-                android:background="@color/gray"
-                android:text="Sign with Google" />
+<!--            <Button-->
+<!--                android:id="@+id/google_login_btn"-->
+<!--                style="@style/MyButtonview"-->
+<!--                android:layout_width="350dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_gravity="center_horizontal"-->
+<!--                android:layout_marginTop="500dp"-->
+<!--                android:background="@color/gray"-->
+<!--                android:text="Sign with Google" />-->
 
             <Button
                 android:id="@+id/move_to_signup"

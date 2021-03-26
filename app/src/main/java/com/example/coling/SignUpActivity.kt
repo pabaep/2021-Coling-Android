@@ -50,7 +50,8 @@ class SignUpActivity : AppCompatActivity() {
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             //유저를 서버에 등록 성공했음. 이제 유저의 이메일로 인증 메일을 발송함.
-                            auth.currentUser?.sendEmailVerification()
+                            /*아래는 이메일 인증 부분 주석처리 해둔 것*/
+                            /*auth.currentUser?.sendEmailVerification()
                                 ?.addOnCompleteListener {task2 ->
                                     if (task2.isSuccessful){
                                         //이메일을 보냈으니 확인하라는 토스트메세지 띄움.
@@ -60,7 +61,7 @@ class SignUpActivity : AppCompatActivity() {
                                     else{
                                         Log.d("로그-fail-인증 메일 전송","실패 . . . . "+task2.exception?.message)
                                     }
-                                }
+                                }*/
 
 
                             // Sign in success, update UI with the signed-in user's information

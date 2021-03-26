@@ -1,6 +1,7 @@
 package com.example.coling
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -45,6 +46,12 @@ class SettingFragment : Fragment() {
         btn_privacy.setOnClickListener {
             val intent = Intent(activity, SettingPrivacyActivity::class.java)
             startActivity(intent)
+        }
+
+        //FAQ 버튼
+        btn_chatbot.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://bot.dialogflow.com/9800e977-c0be-4f36-aa3e-d1d2fe8a1df6"))
+            view.context.startActivity(intent)
         }
     }
 

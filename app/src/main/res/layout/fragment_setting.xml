@@ -77,13 +77,13 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_terms" />
 
     <Button
-        android:id="@+id/btn_faq"
+        android:id="@+id/btn_chatbot"
         android:layout_width="350dp"
         android:layout_height="70dp"
         android:layout_marginTop="15dp"
         android:background="@color/lightgreen"
         android:fontFamily="@font/bmhnnnaair"
-        android:text="FAQ"
+        android:text="Chatbot"
         android:textColor="@color/darkgreen"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"

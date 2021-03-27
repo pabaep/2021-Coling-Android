@@ -13,10 +13,11 @@ class MyActActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_act)
-        var myActName = my_act_name.text.toString()
-        var myActContent = my_act_contents.text.toString()
+
 
         btn_doit.setOnClickListener{
+            var myActName = my_act_name.text.toString()
+            var myActContent = my_act_contents.text.toString()
             val intent = Intent(this, ActRecordActivity::class.java)
             /*intent.putExtra("act_name", my_act_name.text.toString())
             intent.putExtra("act_content", my_act_contents.text.toString())

@@ -77,6 +77,16 @@
 <!--                android:background="@color/gray"-->
 <!--                android:text="Sign with Google" />-->
 
+            <TextView
+                android:id="@+id/tv_reset_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="465dp"
+                android:text="Forgot password"
+                android:padding="10dp"
+                android:textSize="12sp"/>
+
             <Button
                 android:id="@+id/move_to_signup"
                 style="@style/MyButtonview"

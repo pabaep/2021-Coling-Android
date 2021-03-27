@@ -1,9 +1,11 @@
 package com.example.coling
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,11 +59,34 @@ class SettingFragment : Fragment() {
             view.context.startActivity(intent)
         }
 
-        btn_password.setOnClickListener {
-
+        // 회원탈퇴 버튼
+        btn_withdraw.setOnClickListener {
+            val mAlertDialog = AlertDialog.Builder(requireActivity())
+            mAlertDialog.setTitle("Withdrawal") //set alertdialog title
+            mAlertDialog.setMessage("Please remember that deleted accounts cannot be recovered and the posts and information of the accounts will be deleted completely. Are you sure you want to leave?") //set alertdialog message
+            mAlertDialog.setPositiveButton("Yes") { dialog, id ->
+                //perform some tasks here
+                deleteId()
+                auth.signOut()
+                val intent = Intent(activity, LogInActivity :: class.java )//로그인화면으로 넘어감
+                startActivity(intent)
+            }
+            mAlertDialog.setNegativeButton("No") { dialog, id ->
+                //perform som tasks here
+            }
+            mAlertDialog.show()
         }
     }
 
+    // 회원탈퇴 함수
+    fun deleteId() {
+        auth?.currentUser?.delete()
+            ?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(requireActivity(), "Successful membership withdrawal", Toast.LENGTH_LONG).show()
+                }
+            }
+    }
 
 
 }

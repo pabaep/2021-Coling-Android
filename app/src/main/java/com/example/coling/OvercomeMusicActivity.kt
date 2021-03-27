@@ -2,6 +2,7 @@ package com.example.coling
 
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.coling.R
@@ -122,6 +123,24 @@ class OvercomeMusicActivity : AppCompatActivity() {
             Toast.makeText(this, "Yoga music is turned off.", Toast.LENGTH_SHORT).show()
             startPlay()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaplayer_cleaning?.release()
+        mediaplayer_cleaning=null
+        mediaplayer_coffee?.release()
+        mediaplayer_coffee=null
+        mediaplayer_cooking?.release()
+        mediaplayer_cooking=null
+        mediaplayer_drive?.release()
+        mediaplayer_drive=null
+        mediaplayer_shopping?.release()
+        mediaplayer_shopping=null
+        mediaplayer_walk?.release()
+        mediaplayer_walk=null
+        mediaplayer_yoga?.release()
+        mediaplayer_yoga=null
     }
 
     fun stopPlay(){

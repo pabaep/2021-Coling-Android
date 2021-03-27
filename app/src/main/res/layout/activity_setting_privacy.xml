@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
         android:fontFamily="@font/bmjua"
-        android:text="Privacy Police"
+        android:text="Privacy Policy"
         android:textColor="@color/darkgreen"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -6,9 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_log_in.*
+import kotlinx.android.synthetic.main.fragment_setting.*
 
 class LogInActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -43,6 +47,25 @@ class LogInActivity : AppCompatActivity() {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
             //signIn()
+        }
+
+        // 비밀번호 재설정 버튼
+        tv_reset_pw.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            val dialogView = layoutInflater.inflate(R.layout.item_dialog, null)
+
+            val dialogText = dialogView.findViewById<EditText>(R.id.dialogEt)
+
+            builder.setView(dialogView)
+                .setPositiveButton("Ok") { dialogInterface, i ->
+                    resetPassword(dialogText.text.toString())
+
+                }
+                .setNegativeButton("Cancel") { dialogInterface, i ->
+                    // no action
+                }
+                .show()
+
         }
 
         login_btn.setOnClickListener {
@@ -90,6 +113,16 @@ class LogInActivity : AppCompatActivity() {
         //앱 시작 단계에서 사용자가 현재 로그인 되어 있는지 확인하고 처리 해 준다.
         val currentUser = auth?.currentUser
         //updateUI(currentUser) //이건 원하는대로 사용자 설정해 주는 부분인듯 하다.
+    }
+
+    // 비밀번호 재설정 함수
+    fun resetPassword(email : String) {
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful) {
+                    Toast.makeText(this,"Check your email." , Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     fun updateUI(cUser : FirebaseUser? = null){

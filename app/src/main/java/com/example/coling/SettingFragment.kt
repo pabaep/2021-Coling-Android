@@ -7,8 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_setting.*
 
 class SettingFragment : Fragment() {
@@ -48,12 +51,17 @@ class SettingFragment : Fragment() {
             startActivity(intent)
         }
 
-        //FAQ 버튼
+        // chatbot 버튼
         btn_chatbot.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://bot.dialogflow.com/9800e977-c0be-4f36-aa3e-d1d2fe8a1df6"))
             view.context.startActivity(intent)
         }
+
+        btn_password.setOnClickListener {
+
+        }
     }
+
 
 
 }

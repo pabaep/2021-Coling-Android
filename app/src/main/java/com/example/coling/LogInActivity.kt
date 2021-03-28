@@ -32,9 +32,9 @@ class LogInActivity : AppCompatActivity() {
             /*아래는 이메일 인증 부분 주석처리 해둔 것*/
             /*//회원가입하고 이메일인증까지 완료한 사용자라면 자동 로그인 실행.
             if(auth.currentUser!!.isEmailVerified){*/
-                val intent = Intent(this, MainActivity::class.java);
-                startActivity(intent);
-                finish();
+            val intent = Intent(this, MainActivity::class.java);
+            startActivity(intent);
+            finish();
             /*아래는 이메일 인증 부분 주석처리 해둔 것*/
             /*}else{
                 //회원가입은 했으나 아직 이메일 인증을 하지 않은 사용자임. 로그인 못함. 토스트띄움
@@ -79,11 +79,11 @@ class LogInActivity : AppCompatActivity() {
                             /*아래는 이메일 인증 부분 주석처리 해둔 것*/
                             /*//회원가입한 유저라는 것 확인됐음. 이제 이메일 인증을 완료한 유저인지 확인.
                             if(auth?.currentUser?.isEmailVerified!!){*/
-                                //맞다면, 로그인 계속 진행.
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInWithEmail:success")
-                                val user = auth.currentUser
-                                updateUI(user)
+                            //맞다면, 로그인 계속 진행.
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success")
+                            val user = auth.currentUser
+                            updateUI(user)
                             /*아래는 이메일 인증 부분 주석처리 해둔 것*/
                             /*}
                             else{

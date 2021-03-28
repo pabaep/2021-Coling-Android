@@ -113,7 +113,7 @@ class DetailHistoryActivity : AppCompatActivity() {
                 toast.show()
                 Log.d("로그-toast-","토스트 ${toast}")
             }
-            
+
             //키보드가 UI를 가리는 것 방지
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 

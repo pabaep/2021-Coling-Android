@@ -45,6 +45,7 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please check your password one more time.",Toast.LENGTH_SHORT).show()
             }
             else {
+                Toast.makeText(this,"The authentication mail is sent after pressing the button.\nYou need to check the authentication mail to sign up for membership.",Toast.LENGTH_SHORT).show()
                 //이메일과 비밀번호 양식이 올바름. 유저를 서버에 등록.
                 auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString())
                     .addOnCompleteListener(this) { task ->

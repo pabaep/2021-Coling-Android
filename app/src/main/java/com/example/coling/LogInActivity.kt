@@ -30,6 +30,7 @@ class LogInActivity : AppCompatActivity() {
         //null이 아니면 전에 로그인을 시도하지 않음. 로그아웃을 클릭할 때까지 계속 자동로그인
         if (auth.currentUser != null) { //현재 사용자를 가지고 와서 null값과 비교
             /*아래는 이메일 인증 부분 주석처리 해둔 것*/
+
             //회원가입하고 이메일인증까지 완료한 사용자라면 자동 로그인 실행.
             if(auth.currentUser!!.isEmailVerified){
                 val intent = Intent(this, MainActivity::class.java);

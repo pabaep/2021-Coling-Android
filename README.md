@@ -1,4 +1,4 @@
-# 2021-Coling-Android
+# 2021-Cling-Android
 
 ## 서비스 소개
 * 서비스명 : COling(COVID19+healing)

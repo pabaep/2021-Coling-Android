@@ -33,7 +33,3 @@ https://www.youtube.com/watch?v=gYpzxKwjV5c
 ## 개발기간
 2021.01.15 ~ 2021.03.30
 
-## 기능 명세서 및 각자 맡은 역할
-https://docs.google.com/spreadsheets/d/1VNB5WhlgSkEiNSjTG1eeeElv5Sl_2qM8/edit#gid=182386551
-
-
